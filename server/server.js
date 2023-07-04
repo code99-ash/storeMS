@@ -1,6 +1,7 @@
 const express = require('express')
 const cors = require('cors')
 const connectMongoose = require('./config/mongoose')
+const fileupload = require('express-fileupload')
 
 require('dotenv').config()
 
@@ -11,12 +12,15 @@ app.use(cors({
     origin: 'http://localhost:8080',
     optionsSuccessStatus: 200
 }))
+app.use(fileupload({ useTempFiles: true }));
 app.use(express.json())
-app.use(express.urlencoded({extended: true}))
+app.use(express.urlencoded({extended: false}))
 
-app.get('/hello', (req, res) => {
-    res.send("<h1>Hello Buddy</h1>")
-})
+
+// Routes
+app.use('/api/products', require('./routes/products.js'))
+
+
 
 const PORT = process.env.PORT
 
