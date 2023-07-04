@@ -19,6 +19,7 @@ app.use(express.urlencoded({extended: false}))
 
 // Routes
 app.use('/api/products', require('./routes/products.js'))
+app.use('/api/orders', require('./routes/orders.js'))
 
 
 

@@ -1,9 +1,9 @@
 const mongoose = require('mongoose')
 
 const OrdSchema = new mongoose.Schema({
-    Order: {
+    payment: {
         type: mongoose.Types.ObjectId,
-        ref: 'Order',
+        ref: 'Payment',
         required: true,
     },
     product: {
