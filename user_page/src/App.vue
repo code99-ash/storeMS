@@ -2,10 +2,22 @@
   <router-view/>
 </template>
 
-<script>
-export default {
-  name: 'App'
-}
+<script setup>
+import { inject, onMounted } from 'vue'
+import store from '@/store'
+
+onMounted(async () => {
+  await store.dispatch('fetchProducts');
+
+  const socket = inject('$socket')
+  socket.on('message', (message) => {
+    console.log(message)
+  })
+
+  socket.on('newProduct', msg => {
+    console.log('NEW PROD', msg)
+  })
+})
 </script>
 
 

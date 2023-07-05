@@ -35,33 +35,19 @@
       <div class="grid grid-cols-4 gap-2">
        
         <!-- Produt Card -->
-        <div class="bg-slate-50 hover:shadow p-2 group flex flex-col justify-between" v-for="p in $store.state.products" :key="p.id">
-          <img :src="require(`@/assets/images/${p.image}`)" class="h-280px group-hover:scale-90 transition-all" />
-          <div class="p-2 space-y-2">
-            <p class="text-slate-500 text-sm">{{p.title}}</p>
-            <div class="flex justify-between items-center">
-              <h4 class="text-xl font-medium text-slate-500">#{{p.price}}</h4>
-              <div class="flex items-center gap-x-3">
-                <input type="number" class="w-[65px] h-[38px] border rounded text-center outline-0 border-slate-300" value="0">
-                <i class="pi pi-shopping-cart text-orange-400 text-xl"></i>
-              </div>
-            </div>
-          </div>
-        </div>
-
+        <product-card
+          v-for="p in $store.state.products" 
+          :key="p._id" :product="p"
+        ></product-card>
 
       </div>
     </section>
   </div>
 </template>
 
-<script>
-export default {
-  name: 'HomeView',
-  data: () => ({
+<script setup>
+import ProductCard from '@/components/ProductCard.vue';
 
-  })
-};
 </script>
 
 

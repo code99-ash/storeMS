@@ -2,6 +2,10 @@ const express = require('express')
 const cors = require('cors')
 const connectMongoose = require('./config/mongoose')
 const fileupload = require('express-fileupload')
+const ProductProducer = require('./sockets/ProductSocket')
+
+const productProducer = new ProductProducer()
+
 
 require('dotenv').config()
 
@@ -28,5 +32,6 @@ const PORT = process.env.PORT
 
 app.listen(PORT, async() => {
     await connectMongoose()
+    productProducer.broadcastNewProduct('Product', {msg: 'Hello'})
     console.log(`Server running on port ${PORT}`)
 })
