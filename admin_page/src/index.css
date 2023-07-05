@@ -16,6 +16,7 @@ body {
   margin: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  @apply bg-[#FFFDF6];
 }
 
 code {
@@ -56,6 +57,16 @@ code {
   }
 }
 
+.list-enter-active,
+.list-leave-active {
+  transition: all 0.5s ease;
+}
+.list-enter-from,
+.list-leave-to {
+  opacity: 0;
+  transform: translateX(30px);
+}
+
 .ellipsis-3 {
   overflow: hidden;
   display: -webkit-box;
@@ -69,4 +80,8 @@ code {
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 3; /* start showing ellipsis when 3rd line is reached */
   white-space: pre-wrap; /* let the text wrap preserving spaces */
+}
+
+.container {
+  @apply max-w-[1200px] mx-auto px-3;
 }

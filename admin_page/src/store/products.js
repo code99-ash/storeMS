@@ -8,8 +8,7 @@ const state = {
 const actions = {
     async fetchProducts({commit}) {
         const response = await axios.get(`${apiBase.central}/products`);
-        console.log(response)
-        commit('SET_PRODUCT', response.data)
+        commit('SET_PRODUCTS', response.data)
     },
     addProduct({commit}, payload) {
         commit('ADD_PRODUCT', payload)
@@ -33,6 +32,7 @@ const mutations = {
         state.data = state.data.map(each => each._id == payload._id? {...each, ...payload} : each)
     },
     SET_PRODUCTS(state, payload) {
+        console.log(payload)
         state.data = payload
     }
 }

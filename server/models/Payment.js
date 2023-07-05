@@ -6,6 +6,11 @@ const PaymSchema = new mongoose.Schema({
         ref: 'User',
         required: true,
     },
+    items: [{
+        type: mongoose.Types.ObjectId,
+        ref: 'Order',
+        required: true,
+    }],
     reference: {
         type: String,
         required: true,
