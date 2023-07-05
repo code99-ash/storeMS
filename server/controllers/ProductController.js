@@ -71,7 +71,7 @@ module.exports = {
 
     deleteProduct: async(req, res) => {
         try {
-            
+            console.log(req.body)
             // Delete file first
             const filePath = path.join(__dirname, '../uploads/', req.body.image);
             fs.unlink(filePath, async(err) => {

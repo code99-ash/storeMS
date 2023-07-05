@@ -5,7 +5,7 @@ const { addProduct, editProduct, deleteProduct, updateProductImage, fetchProduct
 router.get('/', (...params) => fetchProducts(...params))
 router.post('/', (...params) => addProduct(...params))
 router.put('/', (...params) => editProduct(...params))
-router.delete('/', (...params) => deleteProduct(...params))
+router.post('/delete', (...params) => deleteProduct(...params))
 router.post('/update-image', (...params) => updateProductImage(...params))
 
 
