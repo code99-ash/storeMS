@@ -1,6 +1,6 @@
 <template>
     <div class="bg-slate-50 hover:shadow p-2 group flex flex-col justify-between">
-          <img :src="`${imageBase}/${product.image}`" class="h-280px group-hover:scale-90 transition-all" />
+          <img :src="`${imageBase}/${product.image}`" class="h-[280px] object-cover group-hover:scale-90 transition-all" />
           <div class="p-2 space-y-2">
             <p class="text-slate-500 text-sm">{{product.title}}</p>
             <div class="flex justify-between items-center">

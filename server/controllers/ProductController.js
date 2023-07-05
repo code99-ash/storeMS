@@ -83,6 +83,7 @@ module.exports = {
     
                 // Delete product from DB
                 await Product.findByIdAndDelete(req.body._id);
+                producer.broadcastNewProduct('Product', {method: 'remove', data: req.body._id})
                 res.send('Successfully deleted product data')
             })
         } catch(err) {

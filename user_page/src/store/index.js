@@ -39,6 +39,9 @@ export default createStore({
     addProduct({commit}, payload) {
       commit('ADD_PRODUCT', payload)
     },
+    removeProduct({commit}, payload) {
+      commit('REMOVE_PRODUCT', payload)
+    },
 
     updateCart({commit}, payload) {
       commit('UPDATE_CART', payload)
@@ -64,6 +67,10 @@ export default createStore({
 
     ADD_PRODUCT(state, payload) {
       state.products.push(payload)
+    },
+
+    REMOVE_PRODUCT(state, id) {
+      state.products = state.products.filter(each => each._id !== id)
     },
 
     UPDATE_CART(state, payload) {

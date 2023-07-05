@@ -24,10 +24,13 @@ onMounted(async () => {
   if(socket) {
     socket.on('productChannel', (message) => {
       console.log(message.data)
-      
+
       const { method, data } = message.data;
       if(method == 'create') {
         store.dispatch('addProduct', data)
+      }
+      else if(method == 'remove') {
+        store.dispatch('removeProduct', data)
       }
     })
   }
