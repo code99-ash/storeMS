@@ -5,7 +5,7 @@
         <FeedbackItem :feedback="f" v-for="f in $store.state.feedbacks" :key="f.id" />
       </TransitionGroup>
     </div>
-    
+
     <router-view/>
   </div>
 </template>
@@ -14,18 +14,23 @@
 import { inject, onMounted } from 'vue'
 import store from '@/store'
 import FeedbackItem from '@/components/Feedbacks/FeedbackItem.vue'
+import { io } from 'socket.io-client'
 
 onMounted(async () => {
   await store.dispatch('fetchProducts');
+  const socket = io('http://localhost:5001')
 
-  const socket = inject('$socket')
-  socket.on('message', (message) => {
-    console.log(message)
-  })
-
-  socket.on('newProduct', msg => {
-    console.log('NEW PROD', msg)
-  })
+  // Check if the socket is defined before using it
+  if(socket) {
+    socket.on('productChannel', (message) => {
+      console.log(message.data)
+      
+      const { method, data } = message.data;
+      if(method == 'create') {
+        store.dispatch('addProduct', data)
+      }
+    })
+  }
 })
 </script>
 

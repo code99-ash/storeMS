@@ -36,6 +36,10 @@ export default createStore({
       const response = await axios.get(`${apiBase.central}/products`);
       commit('SET_PRODUCTS', response.data)
     },
+    addProduct({commit}, payload) {
+      commit('ADD_PRODUCT', payload)
+    },
+
     updateCart({commit}, payload) {
       commit('UPDATE_CART', payload)
     },
@@ -56,6 +60,10 @@ export default createStore({
     SET_PRODUCTS(state, payload) {
       console.log(payload)
       state.products = payload
+    },
+
+    ADD_PRODUCT(state, payload) {
+      state.products.push(payload)
     },
 
     UPDATE_CART(state, payload) {

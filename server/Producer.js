@@ -1,7 +1,7 @@
 const amqp = require('amqplib')
-const config = require('../config/rabbitmq')
+const config = require('./config/rabbitmq')
 
-class ProductSocket {
+class Producer {
     channel;
 
     async createChannel() {
@@ -29,4 +29,4 @@ class ProductSocket {
     }
 }
 
-module.exports = ProductSocket
+module.exports = Producer

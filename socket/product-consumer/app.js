@@ -21,15 +21,16 @@ async function consumePoductData() {
         const data = JSON.parse(msg.content)
         console.log(data)
         for (const socket of Object.values(clients)) {
-            socket.emit('message', data);
+            socket.emit('productChannel', data);
         }
         io.emit('message', data)
+        channel.ack(msg)
     })
 }
 
 const server = http.createServer(app);
 const io = socketio(server, { cors: {
-    origin: "http://localhost:8081",
+    origin: "http://localhost:8080",
     methods: ["GET", "POST"]
 }});
 
