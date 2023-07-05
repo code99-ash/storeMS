@@ -46,6 +46,13 @@ const addtocart = async() => {
     const data = {_id, price, title, image, quantity: qty.value}
     // console.log(data)
     await store.dispatch('updateCart', data)
+    qty.value = 0;
+
+    store.dispatch('addFeedback', {
+        heading: 'Added to Cart',
+        variant: 'success',
+        body: 'Successfully added product to cart !!',
+    })
     // console.log(store.state.cartItems)
 }
 

@@ -1,10 +1,19 @@
 <template>
-  <router-view/>
+  <div>
+    <div class="w-[300px] h-max p-2 space-y-2 z-[50] fixed top-0 right-0 mt-[65px]">
+      <TransitionGroup name="list">
+        <FeedbackItem :feedback="f" v-for="f in $store.state.feedbacks" :key="f.id" />
+      </TransitionGroup>
+    </div>
+    
+    <router-view/>
+  </div>
 </template>
 
 <script setup>
 import { inject, onMounted } from 'vue'
 import store from '@/store'
+import FeedbackItem from '@/components/Feedbacks/FeedbackItem.vue'
 
 onMounted(async () => {
   await store.dispatch('fetchProducts');

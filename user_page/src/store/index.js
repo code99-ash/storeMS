@@ -19,9 +19,19 @@ export default createStore({
         image: 'pizza.png',
         price: 2500
       },
+    ],
+    feedbacks: [
+      {
+        id: 1,
+        heading: 'Welcome back!!',
+        body: 'Welcome back to your dashboard, it\'s being a while',
+        variant: 'success',
+        duration: 3000
+      }
     ]
   },
   actions: {
+    // Products and Cart
     async fetchProducts({commit}) {
       const response = await axios.get(`${apiBase.central}/products`);
       commit('SET_PRODUCTS', response.data)
@@ -31,9 +41,18 @@ export default createStore({
     },
     removeFromCart({commit}, id) {
       commit('REMOVE_FROM_CART', id)
+    },
+
+    // Feedbacks
+    removeFeedback({commit}, id) {
+      commit('REM_FEEDBACK', id)
+    },
+    addFeedback({commit}, payload) {
+      commit('ADD_FEEDBACK', payload)
     }
   },
   mutations: {
+    // products & Cart
     SET_PRODUCTS(state, payload) {
       console.log(payload)
       state.products = payload
@@ -50,15 +69,30 @@ export default createStore({
         state.cartItems.push(payload)
       }
 
-      const amount = state.cartItems.reduce((accumulator, product) => {
+      state.cartAmount = state.cartItems.reduce((accumulator, product) => {
         return accumulator + (product.price * product.quantity);
       }, 0);
-      state.cartAmount = amount
-      console.log(state.cartAmount)
     },
 
     REMOVE_FROM_CART(state, id) {
       state.cartItems = state.cartItems.filter(each => each._id !== id);
+      
+      const amount = state.cartItems.reduce((accumulator, product) => {
+        return accumulator + (product.price * product.quantity);
+      }, 0);
+      
+      state.cartAmount = amount == 0? '0.00':amount
+    },
+
+    // Feedbacks
+    REM_FEEDBACK(state, id) {
+      state.feedbacks = state.feedbacks.filter(fb => fb.id !== id)
+    },
+    ADD_FEEDBACK(state, { heading, body, variant, duration }) {
+      state.feedbacks = [{
+        id: new Date().getTime().toString(), heading, body, variant, duration: duration ?? 3000}
+        , ...state.feedbacks
+      ]
     }
   },
   modules: { }

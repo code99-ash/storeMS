@@ -2,7 +2,7 @@
     <div class="p-2 flex gap-2 relative bg-[#F5F5F5]">
             <i 
                 class="pi pi-trash text-red-500 text-lg absolute top-3 right-3 cursor-pointer"
-                @click="$store.dispatch('removeFromCart', item._id)"
+                @click="removeFromCart"
             ></i>
             <img :src="`${imageBase}/${item.image}`" class="flex-none w-[175px] h-auto" />
             <div class="h-full space-y-5 pt-[30px] px-5">
@@ -31,6 +31,15 @@ const imageBase = `${apiBase.central}/images`
 
 const updateCartItem = e => {
     store.dispatch('updateCart', {_id: props.item._id, quantity: e.target.value})
+}
+
+const removeFromCart = () => {
+    store.dispatch('removeFromCart', props.item._id)
+    store.dispatch('addFeedback', {
+            heading: 'Success Alert',
+            variant: 'success',
+            body: 'Successfully deleted from cart !!',
+    })
 }
 
 </script>
