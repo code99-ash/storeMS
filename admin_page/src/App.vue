@@ -2,10 +2,14 @@
   <router-view/>
 </template>
 
-<script>
-export default {
-  name: 'App'
-}
+<script setup>
+import { onMounted } from 'vue'
+import store from '@/store'
+
+onMounted(async() => {
+  await store.dispatch('products/fetchProducts');
+})
+
 </script>
 
 

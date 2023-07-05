@@ -3,6 +3,14 @@ const fs = require('fs')
 const path = require('path')
 
 module.exports = {
+    fetchProducts: async(req, res) => {
+        try {
+            const data = await Product.find();
+            res.json(data)
+        } catch(err) {
+            res.status(400).send('Unable to fetch products, please try refreshing the request')
+        }
+    },
     addProduct: async(req, res) => {
         const exists = await Product.findOne({title: req.body.title});
         if(exists) {
