@@ -11,7 +11,7 @@
 </template>
 
 <script setup>
-import { inject, onMounted } from 'vue'
+import { onMounted } from 'vue'
 import store from '@/store'
 import FeedbackItem from '@/components/Feedbacks/FeedbackItem.vue'
 import { io } from 'socket.io-client'

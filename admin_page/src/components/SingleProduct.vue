@@ -48,9 +48,7 @@ const confirmOperation = async() => {
             header: { 'Content-Type': 'application/json' }
         })
         await store.dispatch('products/removeProduct', _id)
-        setTimeout(() => {
-            openConfirm.value = false;
-        }, 3000);
+       
         store.dispatch('addFeedback', {
             heading: 'Success Alert',
             variant: 'success',

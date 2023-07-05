@@ -28,9 +28,23 @@
 import { onMounted } from 'vue'
 import store from '@/store'
 import FeedbackItem from '@/components/Feedbacks/FeedbackItem.vue'
+import { io } from 'socket.io-client'
 
 onMounted(async() => {
   await store.dispatch('products/fetchProducts');
+  const socket = io('http://localhost:5002')
+
+  // Check if the socket is defined before using it
+  if(socket) {
+    socket.on('orderChannel', (message) => {
+      console.log(message.data)
+
+      const { method, data } = message.data;
+      if(method == 'create') {
+        store.dispatch('addProduct', data)
+      }
+    })
+  }
 })
 
 </script>

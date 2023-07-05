@@ -2,6 +2,7 @@ import { apiBase } from '@/utils';
 import axios from 'axios'
 
 const state = {
+    pendingOrder: 0,
     data: [
         {
             _id: "64a476fe75cfcb4f3936cce0",
@@ -40,6 +41,9 @@ const actions = {
     updateOrderStatus({commit}, payload) {
         commit('UPDATE_ORDERS', payload)
     },
+    newOrder({commit}, payload) {
+        commit('NEW_ORDER', payload)
+    }
 }
 
 const mutations = {
@@ -49,6 +53,9 @@ const mutations = {
     SET_ORDERS(state, payload) {
         console.log(payload)
         state.data = payload
+    },
+    NEW_ORDER(state, payload) {
+        state.data.push(payload)
     }
 }
 
