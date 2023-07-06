@@ -40,14 +40,13 @@ import LoginView from '@/components/Auth/LoginView.vue';
 
 const route = useRoute();
 const authType = ref('login')
-const openAuth = ref(true)
+const openAuth = ref(false)
 
 const openLogin = () => {
   authType.value = 'login'
   openAuth.value = true
 }
 
-// console.log(route.name)
 onMounted(async () => {
   await store.dispatch('fetchProducts');
   const socket = io('http://localhost:5001')
