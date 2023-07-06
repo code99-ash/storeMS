@@ -1,15 +1,5 @@
 <template>
   <div class="home">
-    <header class="w-full fixed z-50 p-3 md:p-0">
-      <nav class="header-nav">
-        <router-link :to="{name: 'Cart'}" class="cart-btn">
-          View Cart <i class="pi pi-shopping-cart"></i>
-        </router-link>
-        <router-link to="/" class="account-btn">
-          Login <i class="pi pi-lock"></i>
-        </router-link>
-      </nav>
-    </header>
     <div class="hero-banner">
       <div class="hero-content">
         <button class="w-[65px] h-[65px] rounded-full bg-[#8D6527] text-white absolute bottom-[30px] right-0">
@@ -72,7 +62,5 @@ import ProductCard from '@/components/ProductCard.vue';
 .hero-footer p {
   // @apply ;
 }
-.header-nav {
-  @apply flex py-[20px] justify-end space-x-3 max-w-[1200px] mx-auto;
-}
+
 </style>

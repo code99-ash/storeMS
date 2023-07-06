@@ -1,7 +1,5 @@
 <template>
     <div class="">
-      <HeaderNav />
-      
       <main class="container py-3">
         <h1 class="font-medium text-2xl mb-5 pl-3">Order History</h1>
             <!-- Cart Item -->
@@ -24,7 +22,6 @@
   
   
 <script setup>
-import HeaderNav from '@/components/HeaderNav.vue';
 
 </script>
   

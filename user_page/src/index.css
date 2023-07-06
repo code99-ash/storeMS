@@ -12,6 +12,10 @@
   opacity: 0;
 }
 
+.btn {
+  @apply outline-0 px-[12px] py-[6px] rounded;
+}
+
 body {
   margin: 0;
   -webkit-font-smoothing: antialiased;

@@ -13,7 +13,7 @@ app.use(express.urlencoded({extended: false}))
 
 
 // Routes
-app.use('/api/v2/auth', require('./routes/auth.js'))
+app.use('/api/auth', require('./routes/auth.js'))
 
 const PORT = process.env.PORT
 

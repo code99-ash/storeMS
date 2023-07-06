@@ -1,7 +1,5 @@
 <template>
   <div class="">
-    <HeaderNav />
-    
     <main class="max-w-[1100px] mx-auto py-3">
       <div class="flex gap-5">
        
@@ -35,7 +33,6 @@
 
 
 <script setup>
-import HeaderNav from '@/components/HeaderNav.vue';
 import CartItem from '../components/CartItem.vue';
 
 </script>

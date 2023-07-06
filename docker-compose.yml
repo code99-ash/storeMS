@@ -1,0 +1,77 @@
+version: '3'
+services:
+  server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    ports:
+      - '4000:4000'
+    environment:
+      - DB_CONNECT=mongodb://127.0.0.1:27017/store_ms
+  authserver:
+    build:
+      context: ./authserver
+      dockerfile: Dockerfile
+    ports:
+      - '4001:4001'
+    environment:
+      - DB_CONNECT=mongodb://127.0.0.1:27017/store_ms
+      - TOKEN_SECRET=NJD3402
+      - REDIS_PORT=6379
+      - REDIS_HOST=127.0.0.1
+  admin_page:
+    build:
+      context: ./admin_page
+      dockerfile: Dockerfile
+    ports:
+      - '8081:8081'
+    environment:
+      - VUE_APP_CENTRAL_URL=http://localhost:4000
+  user_page:
+    build:
+      context: ./user_page
+      dockerfile: Dockerfile
+    ports:
+      - '8080:8080'
+    environment:
+      - VUE_APP_CENTRAL_URL=http://localhost:4000
+  # order_consumer:
+  #   build:
+  #     context: ./socket/order-consumer
+  #     dockerfile: Dockerfile
+  #   ports:
+  #     - '5002:5002'
+  #   depends_on:
+  #     - rabbitmq
+  # product_consumer:
+  #   build:
+  #     context: ./socket/product-consumer
+  #     dockerfile: Dockerfile
+  #   ports:
+  #     - '5001:5001'
+  #   depends_on:
+  #     - rabbitmq
+  redis:
+    image: redis:latest
+    ports:
+      - '6379:6379'
+  rabbitmq:
+    image: rabbitmq:latest
+    ports:
+      - '5672:5672'
+      - '15672:15672'
+  # nginx:
+  #   image: nginx:latest
+  #   volumes:
+  #     - ./nginx:/etc/nginx/conf.d
+  #   ports:
+  #     - '80:80'
+  #   depends_on:
+  #     - server
+  #     - authserver
+  #     - admin_page
+  #     - user_page
+  #     - order_consumer
+  #     - product_consumer
+  #     - redis
+  #     - rabbitmq
