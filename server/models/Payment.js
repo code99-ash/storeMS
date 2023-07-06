@@ -1,5 +1,21 @@
 const mongoose = require('mongoose')
 
+const OrdSchema = new mongoose.Schema({
+    product: {
+        type: mongoose.Types.ObjectId,
+        ref: 'Product',
+        required: true,
+    },
+    quantity: {
+        type: Number,
+        required: true,
+    },
+    price: {
+        type: Number,
+        required: true,
+    },
+})
+
 const PaymSchema = new mongoose.Schema({
     user: {
         type: mongoose.Types.ObjectId,
@@ -7,8 +23,7 @@ const PaymSchema = new mongoose.Schema({
         required: true,
     },
     items: [{
-        type: mongoose.Types.ObjectId,
-        ref: 'Order',
+        type: OrdSchema,
         required: true,
     }],
     reference: {

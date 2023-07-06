@@ -8,12 +8,12 @@
         <div class="w-2/5 space-y-1 p-3 text-slate-500 font-medium text-sm">
           <h1 class="">{{ order.reference }}</h1>
           <h1 class="">NGN {{ order.amount }}</h1>
-          <h1 class="">{{ order.orders.length }} Piece(s)</h1>
+          <h1 class="">{{ order.items.length }} Piece(s)</h1>
         </div>
         <div class="grow">
             <div class="flex items-center w-full space-y-2">
               <div class="w-2/3 space-y-2 font-medium text-[15px] pt-[20px]">
-                <h1 class="text-[#8D6527]">By: {{ order.user.name }}</h1>
+                <h1 class="text-[#8D6527]">By: {{ order.customer[0].name }}</h1>
                 <h1 class="text-orange-400">{{order.phone}}</h1>
               </div>
               <div class="w-1/3 flex justify-around items-center gap-3 md:gap-0">
@@ -29,47 +29,32 @@
               </div>
             </div>
             <div class="block text-slate-500 pt-2">
-              <p class="text-sm font-medium">{{ order.deliveryAddress }}</p>
+              <p class="text-sm font-medium">{{ order.deliveryAaddress }}</p>
             </div>
         </div>
       </div>
 
       <!-- Ordered Items -->
       <section :class="['space-y-2 transition-all', !opened? 'scale-0 h-0':'scale-100']">
-        <div v-for="item in order.orders" :key="item._id" class="item-list">
-            <img 
-                :src="`${imageBase}/${item.product.image}`" 
-                class="" 
-            />
-            <div class="grid grid-cols-2 gap-2 py-[10px]">
-                <div class="text-slate-500 text-sm font-medium max-w-[300px] px-2">{{ item.product.title }}</div>
-                <div class="text-slate-500 max-w-[400px] font-medium px-2 flex items-center gap-x-3">
-                    <span>{{ item.product.total }}</span>
-                    <i class="pi pi-times"></i>
-                    <span>{{ item.product.quantity }}</span>
-                    <span>=</span>
-                    <span>{{ item.product.quantity * item.product.total }}</span>
-                </div>
-            </div>
-        </div>
+        <ordered-item
+            v-for="item in order.products" 
+            :key="item._id" class="item-list"
+            :product="item" :items="order.items"
+        ></ordered-item>
       </section>
     </section>
 </template>
 
 <script setup>
-import { ref, watch, computed } from 'vue'
-import { apiBase } from '@/utils'
+import { ref, computed } from 'vue'
+import OrderedItem from '@/components/OrderedItem'
 
 const props = defineProps(['order', 'selection'])
 const emits = defineEmits(['selectOrder'])
-const imageBase = `${apiBase.central}/images`
 
 
 const opened = ref(false)
 
-// watch(() => props.selection, (val) => {
-//     // selected.value = val==0? true : false
-// })
 const selected = computed(() => {
     return props.selection.includes(props.order._id)
 })
@@ -83,7 +68,7 @@ const toggleSelect = () => {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .order-status {
     @apply px-[12px] py-[6px] rounded text-sm text-white capitalize;
 }

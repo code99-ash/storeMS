@@ -49,6 +49,18 @@ export default createStore({
     },
     removeFromCart({commit}, id) {
       commit('REMOVE_FROM_CART', id)
+      this.dispatch('cummulateCart')
+    },
+    async getCartItems({commit}) {
+      let items = localStorage.getItem('cart');
+      items = items? JSON.parse(items) : []
+      
+      commit('GET_CART_ITEMS', items)
+      this.dispatch('cummulateCart')
+    },
+
+    cummulateCart({commit}) {
+      commit('CUMMULATE_CART')
     },
 
     // Feedbacks
@@ -88,6 +100,8 @@ export default createStore({
       state.cartAmount = state.cartItems.reduce((accumulator, product) => {
         return accumulator + (product.price * product.quantity);
       }, 0);
+
+      localStorage.setItem('cart', JSON.stringify(state.cartItems))
     },
 
     REMOVE_FROM_CART(state, id) {
@@ -98,6 +112,17 @@ export default createStore({
       }, 0);
       
       state.cartAmount = amount == 0? '0.00':amount
+      localStorage.setItem('cart', JSON.stringify(state.cartItems))
+
+    },
+
+    GET_CART_ITEMS: (state, data) => {
+      state.cartItems = data;
+    },
+    CUMMULATE_CART(state) {
+      state.cartAmount = state.cartItems.reduce((accumulator, product) => {
+        return accumulator + (product.price * product.quantity);
+      }, 0);
     },
 
     // Feedbacks

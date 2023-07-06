@@ -1,4 +1,4 @@
-import axios from 'axios';
+// import axios from 'axios';
 import { apiBase } from '@/utils';
 
 export default {
@@ -18,7 +18,7 @@ export default {
         },
         async userRequest({commit}, token) {
             try {
-                const resp = await axios.get(`${window.location.origin}/${apiBase.auth}/user`, { headers: {
+                const resp = await this.$axios.get(`${window.location.origin}/${apiBase.auth}/user`, { headers: {
                     'Authorization': `Bearer ${token}`,
                 } })
                 localStorage.setItem('user', JSON.stringify(resp.data.user))

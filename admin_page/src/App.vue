@@ -12,16 +12,16 @@
         <button class="account-btn">Admin <i class="pi pi-lock text-sm"></i></button>
       </nav>
     </header>
-  </section>
-  <div class="container py-[20px]">
-    <div class="w-[300px] h-max p-2 space-y-2 z-[50] fixed top-0 right-0 mt-[65px]">
-      <TransitionGroup name="list">
-        <FeedbackItem :feedback="f" v-for="f in $store.state.feedbacks" :key="f.id" />
-      </TransitionGroup>
+    <div class="container py-[20px]">
+      <div class="w-[300px] h-max p-2 space-y-2 z-[50] fixed top-0 right-0 mt-[65px]">
+        <TransitionGroup name="list">
+          <FeedbackItem :feedback="f" v-for="f in $store.state.feedbacks" :key="f.id" />
+        </TransitionGroup>
+      </div>
+      
+      <router-view/>
     </div>
-    
-    <router-view/>
-  </div>
+  </section>
 </template>
 
 <script setup>
@@ -31,7 +31,10 @@ import FeedbackItem from '@/components/Feedbacks/FeedbackItem.vue'
 import { io } from 'socket.io-client'
 
 onMounted(async() => {
+// console.log(`${window.location.origin}`)
   await store.dispatch('products/fetchProducts');
+  await store.dispatch('orders/fetchOrders');
+
   const socket = io('http://localhost:5002')
 
   // Check if the socket is defined before using it

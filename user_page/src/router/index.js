@@ -34,13 +34,14 @@ router.beforeEach(async (to, from, next) => {
   if(token) {
     await store.dispatch('auth/userRequest', token)
   }
+  next()
 
   if(to.meta.name == 'guest') {
     if(store.state.auth.loggedIn) { next('/'); }
     next()
   }else {
     if(!store.state.auth.loggedIn) { // not authenticated, back to login
-      next('/')
+      // next('/')
       store.dispatch('addFeedback', {
         heading: 'Error Alert',
         variant: 'error',

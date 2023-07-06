@@ -54,6 +54,7 @@ watch(() => route.value, (val) => {
 
 onMounted(async () => {
   await store.dispatch('fetchProducts');
+  await store.dispatch('getCartItems');
   const socket = io('http://localhost:5001')
 
   axios.interceptors.response.use(undefined, function (err) {

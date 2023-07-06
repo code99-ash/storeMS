@@ -3,39 +3,12 @@ import axios from 'axios'
 
 const state = {
     pendingOrder: 0,
-    data: [
-        {
-            _id: "64a476fe75cfcb4f3936cce0",
-            user: {
-                name: "Ikhlas Oyelami",
-            },
-            reference: "NDJ34320449N24J492",
-            deliveryAddress: "123 ABC Street, Off Abak road, Uyo",
-            phone: "+234-812-902-9753",
-            amount: 850,
-            status: 'pending',
-            orders: [
-                {
-                    _id: "kdkdkd",
-                    payment: "64a476fe75cfcb4f3936cce0",
-                    quantity: 1,
-                    total: 850,
-                    product: {
-                        id: '1',
-                        title: "Christmas pudding Custard English cuisine Mince pie",
-                        image: "_1688499966385pizza.png",
-                        quantity: 1,
-                        total: 850
-                    }
-                }
-            ]
-        }
-    ]
+    data: []
 }
 
 const actions = {
-    async fetchProducts({commit}) {
-        const response = await axios.get(`${apiBase.central}/products`);
+    async fetchOrders({commit}) {
+        const response = await axios.get(`${apiBase.central}/orders`);
         commit('SET_ORDERS', response.data)
     },
     updateOrderStatus({commit}, payload) {
