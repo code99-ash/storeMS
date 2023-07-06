@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { apiBase } from '@utils';
+import { apiBase } from '@/utils';
 
 export default {
     namespaced: true,
@@ -10,9 +10,15 @@ export default {
     }),
 
     actions: {
+        async setAccessToken({commit, dispatch}, token) {
+            console.log(token)
+            localStorage.setItem('auth-token', token)
+            await dispatch('userRequest', token)
+            commit('SET_ACCESS_TOKEN', token)
+        },
         async userRequest({commit}, token) {
             try {
-                const resp = await axios.get(`${window.location.origin}/${apiBase.central}/user`, { headers: {
+                const resp = await axios.get(`${window.location.origin}/${apiBase.auth}/user`, { headers: {
                     'Authorization': `Bearer ${token}`,
                 } })
                 localStorage.setItem('user', JSON.stringify(resp.data.user))
@@ -23,7 +29,7 @@ export default {
                 console.log(err)
                 localStorage.removeItem('auth-token')
                 // redirect to login page
-                window.location = `${window.location.origin}/authorize/login`
+                // window.location = `${window.location.origin}`
             }
         },
         logout({commit}) {
@@ -32,6 +38,7 @@ export default {
     },
 
     mutations: {
+        SET_ACCESS_TOKEN: (state, token) => state.accessToken = token,
         USER_REQUEST: (state, data) => {
             state.user = data;
             state.loggedIn = true

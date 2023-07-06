@@ -30,6 +30,8 @@ import store from '@/store'
 import axios from 'axios'
 import { apiBase } from '@/utils'
 
+const emit = defineEmits(['closePopup'])
+
 const saving = ref(false)
 
 const form = reactive({
@@ -59,13 +61,17 @@ const submit = async() => {
     }
     saving.value = true;
   try {
-        const fd = new FormData();
-        fd.append('email', email)
-        fd.append('password', password)
-
-        const res = await axios.post(`${apiBase.central}/auth`, fd);
+        const res = await axios.post(`${apiBase.auth}/login`, {email, password});
         console.log(res)
+        store.dispatch('auth/setAccessToken', res.data);
+
         // emit('update:modelValue', 'login')
+        emit('closePopup')
+        store.dispatch('addFeedback', {
+            heading: 'Notification',
+            variant: 'success',
+            body: 'Login was successful, welcome back!!',
+        })
     } catch(err) {
         console.log('Error saving product', err)
         store.dispatch('addFeedback', {

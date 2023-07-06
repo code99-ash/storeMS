@@ -28,7 +28,11 @@
                 class="text-teal-700 float-left bg-transparent text-sm"
                 @click="$emit('update:modelValue', 'login')"
             >Already have an account?</button>
-            <button class="bg-amber-600 text-white px-[12px] py-[6px] float-right rounded">
+            <button 
+                class="bg-amber-600 text-white px-[12px] py-[6px] float-right rounded" 
+                :class="{'saturate-50 cursor-not-allowed': saving}"
+                :disabled="saving"
+            >
                 {{ !saving? 'Register':'A moment' }}
                 <i class="pi text-sm ml-1" :class="[saving?'pi-spin pi-spinner':'pi-lock']"></i>
             </button>
@@ -87,7 +91,7 @@ const submit = async() => {
         fd.append('email', email)
         fd.append('password', password)
 
-        const res = await axios.post(`${apiBase.central}/auth`, fd);
+        const res = await axios.post(`${apiBase.auth}/register`, {name, email, password});
         console.log(res)
         emit('update:modelValue', 'login')
     } catch(err) {

@@ -1,4 +1,4 @@
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const User = require('../models/User')
 const jwt = require('jsonwebtoken')
 // const redis = require('redis');
@@ -7,7 +7,8 @@ const loadClient = require('../config/redis')
 module.exports = {
     register: async(req, res) => {
         try {
-            const { email, password } = req.body;
+            const { email, password: unhashed } = req.body;
+            // console.log(email, unhashed)
 
             // Checking if the user is already in ghe database
             const emailExist = await User.findOne({email: email});
@@ -16,10 +17,10 @@ module.exports = {
         
             // Hash the password
             const salt = bcrypt.genSaltSync(10);
-            const hashedPassword = await bcrypt.hashSync(password, salt);
+            const password = await bcrypt.hashSync(unhashed, salt);
         
             // Store user data in Redis
-            const user = await User.create({...req.body, password: hashedPassword})
+            const user = await User.create({...req.body, password })
             res.send(user);
 
           } catch (error) {

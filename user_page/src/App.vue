@@ -19,8 +19,8 @@
     </header>
 
     <AuthView v-model="openAuth">
-      <login-view v-model="authType" v-if="authType=='login'"></login-view>
-      <register-view v-model="authType" v-else></register-view>
+      <login-view v-model="authType" v-if="authType=='login'" @closePopup="openAuth=false"></login-view>
+      <register-view v-model="authType" v-else @closePopup="openAuth=false"></register-view>
     </AuthView>
 
     <router-view />
@@ -29,7 +29,7 @@
 
 <script setup>
 import { io } from 'socket.io-client'
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, watch } from 'vue'
 import  { useRoute } from 'vue-router'
 import store from '@/store'
 import FeedbackItem from '@/components/Feedbacks/FeedbackItem.vue'
@@ -37,6 +37,7 @@ import AuthView from './components/Auth/AuthView.vue'
 import HeaderNav from './components/HeaderNav.vue'
 import RegisterView from '@/components/Auth/RegisterView.vue';
 import LoginView from '@/components/Auth/LoginView.vue';
+import axios from 'axios'
 
 const route = useRoute();
 const authType = ref('login')
@@ -47,9 +48,24 @@ const openLogin = () => {
   openAuth.value = true
 }
 
+watch(() => route.value, (val) => {
+  console.log('route change', val)
+})
+
 onMounted(async () => {
   await store.dispatch('fetchProducts');
   const socket = io('http://localhost:5001')
+
+  axios.interceptors.response.use(undefined, function (err) {
+    return new Promise(function (resolve, reject) {
+      if (err.status >= 400 && err.status <= 403 && err.config && !err.config.__isRetryRequest) {
+      // if you ever get an unauthorized, logout the user
+        this.$store.dispatch('auth/logout')
+      // you can also redirect to /login if needed !
+      }
+      throw err;
+    });
+  });
 
   // Check if the socket is defined before using it
   if(socket) {

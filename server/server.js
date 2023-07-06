@@ -8,13 +8,21 @@ require('dotenv').config()
 const app = express();
 
 // Middleware
-app.use(cors())
+app.use(cors({
+    "origin": "*",
+    "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
+    "preflightContinue": false,
+    "optionsSuccessStatus": 204
+}))
 app.use(fileupload({ useTempFiles: true }));
 app.use(express.json())
 app.use(express.urlencoded({extended: false}))
 
 
 // Routes
+app.get('/api/hey', (req, res) => {
+    res.send("<h1>Hey Buddy</h1>")
+})
 app.use('/api/images', express.static('uploads'))
 app.use('/api/products', require('./routes/products.js'))
 app.use('/api/orders', require('./routes/orders.js'))
