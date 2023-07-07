@@ -1,8 +1,11 @@
-FROM node:lts-alpine
+FROM node:lts-apline
 
-WORKDIR /app
+WORKDIR /users
 
 COPY package*.json .
+
+# install project dependencies
+RUN npm install
 
 COPY . .
 
@@ -13,3 +16,9 @@ ENV NUXT_PORT=3000
 
 EXPOSE 3000 
 CMD ["npm" "run" "dev"]
+
+# # Build the Nuxt.js app
+# RUN npm run build
+
+# # Specify the command to start the app
+# CMD ["npm", "start"]

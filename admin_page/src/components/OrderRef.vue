@@ -90,7 +90,7 @@ const toggleSelect = () => {
 }
 
 .item-list {
-    @apply min-h-[80px] rounded p-2 bg-[#FFFDF6] flex gap-2 w-max md:ml-[45px];
+    @apply min-h-[80px] rounded p-2 bg-[#FFFDF6] flex gap-2 w-max mb-2 md:ml-[45px];
 
     img {
         @apply flex-none w-[60px] h-[60px] rounded;
