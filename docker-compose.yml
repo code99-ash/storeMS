@@ -11,6 +11,8 @@ services:
     environment:
       - DB_CONNECT=mongodb://mongodb:27017/store_ms
       - PORT=4000
+    volumes:
+      - ./server/config/mongoose.js:/app/config/mongoose.js
   authserver:
     build:
       context: ./authserver
@@ -25,9 +27,11 @@ services:
       - REDIS_PORT=6379
       - REDIS_HOST=127.0.0.1
       - PORT=4001
-  admin_page:
+    volumes:
+      - ./server/config/mongoose.js:/app/config/mongoose.js
+  admin:
     build:
-      context: ./admin_page
+      context: ./admin
       dockerfile: Dockerfile
     ports:
       - '8080:8080'
@@ -37,17 +41,17 @@ services:
       dockerfile: Dockerfile
     ports:
       - '3000:3000'
-  order_consumer:
+  orderconsumer:
     build:
-      context: ./socket/order-consumer
+      context: ./socket/orderconsumer
       dockerfile: Dockerfile
     ports:
       - '5002:5002'
     depends_on:
       - rabbitmq
-  product_consumer:
+  productconsumer:
     build:
-      context: ./socket/product-consumer
+      context: ./socket/productconsumer
       dockerfile: Dockerfile
     ports:
       - '5001:5001'
@@ -73,15 +77,15 @@ services:
   nginx:
     image: nginx:latest
     volumes:
-      - ./nginx:/etc/nginx/conf.d
+      - ./nginx/storems.conf:/etc/nginx/conf.d/default.conf
     ports:
       - '80:80'
     depends_on:
       - server
       - authserver
-      - admin_page
+      - admin
       - users
-      - order_consumer
-      - product_consumer
+      - orderconsumer
+      - productconsumer
       - redis
       - rabbitmq
