@@ -10,6 +10,7 @@ services:
       - mongodb
     environment:
       - DB_CONNECT=mongodb://mongodb:27017/store_ms
+      - PORT=4000
   authserver:
     build:
       context: ./authserver
@@ -23,12 +24,13 @@ services:
       - TOKEN_SECRET=NJD3402
       - REDIS_PORT=6379
       - REDIS_HOST=127.0.0.1
+      - PORT=4001
   admin_page:
     build:
       context: ./admin_page
       dockerfile: Dockerfile
     ports:
-      - '8081:8081'
+      - '8080:8080'
   users:
     build:
       context: ./users
