@@ -6,8 +6,8 @@ services:
       dockerfile: Dockerfile
     ports:
       - '4000:4000'
-    # depends_on:
-    #   - mongodb
+    depends_on:
+      - mongodb
     environment:
       - DB_CONNECT=mongodb://localhost:27017/store_ms
       - PORT=4000
@@ -19,8 +19,8 @@ services:
       dockerfile: Dockerfile
     ports:
       - '4001:4001'
-    # depends_on:
-    #   - mongodb
+    depends_on:
+      - mongodb
     environment:
       - DB_CONNECT=mongodb://localhost:27017/store_ms
       - TOKEN_SECRET=NJD3402
@@ -67,14 +67,14 @@ services:
       - '5001:5001'
     depends_on:
       - rabbitmq
-  # mongodb:
-  #   image: mongo
-  #   container_name: mongodb
-  #   restart: always
-  #   ports:
-  #     - '27017:27017'
-  #   volumes:
-  #     - ./data:/data/db
+  mongodb:
+    image: mongo
+    container_name: mongodb
+    restart: always
+    ports:
+      - '27017:27017'
+    volumes:
+      - ./data:/data/db
   redis:
     image: redis:latest
     ports:
