@@ -2,12 +2,7 @@
     <section>
         <header class="w-full fixed z-50 p-3 md:p-0">
             <nav class="header-nav">
-                <nuxt-link to="/cart" class="cart-btn">
-                View Cart <i class="pi pi-shopping-cart"></i>
-                </nuxt-link>
-                <button class="account-btn" @click="$store.dispatch('auth/setOpenAuth', true)">
-                Login <i class="pi pi-lock"></i>
-                </button>
+                <header-right-links></header-right-links>
             </nav>
         </header>
         <section class="">
@@ -35,9 +30,10 @@ import AuthView from '~/components/Auth/AuthView.vue';
 import RegisterView from '~/components/Auth/RegisterView.vue';
 import LoginView from '~/components/Auth/LoginView.vue';
 import FeedbackItem from '@/components/Feedbacks/FeedbackItem.vue'
+import HeaderRightLinks from '@/components/HeaderRightLinks'
 
 export default {
-    components: { AuthView, RegisterView, LoginView, FeedbackItem },
+    components: { AuthView, RegisterView, LoginView, FeedbackItem, HeaderRightLinks },
     mounted() {
         this.initFetch()
     },
@@ -51,7 +47,7 @@ export default {
 </script>
 
 <style scoped>
-.header-nav {
+.header-nav div {
   @apply flex py-[20px] justify-end space-x-3 max-w-[1200px] mx-auto px-3;
 }
 </style>
