@@ -31,18 +31,11 @@ import RegisterView from '~/components/Auth/RegisterView.vue';
 import LoginView from '~/components/Auth/LoginView.vue';
 import FeedbackItem from '@/components/Feedbacks/FeedbackItem.vue'
 import HeaderRightLinks from '@/components/HeaderRightLinks'
+import initiateData from '@/mixins/initiateData'
 
 export default {
     components: { AuthView, RegisterView, LoginView, FeedbackItem, HeaderRightLinks },
-    mounted() {
-        this.initFetch()
-    },
-    methods: {
-        async initFetch() {
-            await this.$store.dispatch('fetchProducts')
-            await this.$store.dispatch('getCartItems')
-        }
-    }
+    mixins: [initiateData]
 }
 </script>
 

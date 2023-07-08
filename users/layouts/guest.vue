@@ -18,17 +18,11 @@
 
 <script>
 import HeaderRightLinks from '@/components/HeaderRightLinks'
+import initiateData from '@/mixins/initiateData'
+
 export default {
     components: { HeaderRightLinks },
-    mounted() {
-        this.initFetch()
-    },
-    methods: {
-        async initFetch() {
-            await this.$store.dispatch('fetchProducts')
-            await this.$store.dispatch('getCartItems')
-        }
-    }
+    mixins: [initiateData]
 }
 </script>
 
