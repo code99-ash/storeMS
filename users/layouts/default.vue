@@ -52,6 +52,6 @@ export default {
 
 <style scoped>
 .header-nav {
-  @apply flex py-[20px] justify-end space-x-3 max-w-[1200px] mx-auto;
+  @apply flex py-[20px] justify-end space-x-3 max-w-[1200px] mx-auto px-3;
 }
 </style>

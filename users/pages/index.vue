@@ -2,7 +2,7 @@
   <div class="home">
     <div class="hero-banner">
       <div class="hero-content">
-        <button class="w-[65px] h-[65px] rounded-full bg-[#8D6527] text-white absolute bottom-[30px] right-0">
+        <button class="arrow-down">
           <i class="pi pi-arrow-down text-3xl"></i>
         </button>
         <div class="hero-highlight">
@@ -22,7 +22,7 @@
     </div>
     
     <section class="py-[20px] max-w-[1200px] mx-auto">
-      <div class="grid grid-cols-4 gap-2">
+      <div class="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-2">
        
         <!-- Produt Card -->
         <product-card
@@ -47,7 +47,7 @@ export default {
 <style scoped>
 .hero-banner {
   background: url('/images/hero-banner.png');
-  @apply w-full h-[600px] bg-cover bg-no-repeat bg-center relative;
+  @apply w-full h-[500px] sm:h-[600px] bg-cover bg-no-repeat bg-center relative;
 }
 .hero-content {
   @apply max-w-[1200px] h-full mx-auto py-[100px] p-3 relative;
@@ -59,7 +59,11 @@ export default {
   @apply text-white text-3xl mx-5 mt-4 font-medium;
 }
 .hero-footer {
-  @apply absolute bottom-0 py-[30px] pl-3 border-t border-slate-300 min-w-[400px] min-h-[120px]
+  @apply absolute bottom-0 py-[30px] md:pl-3 border-t border-slate-300 min-w-[95%] md:min-w-[400px] min-h-[120px]
   text-slate-300;
+}
+.arrow-down {
+  @apply w-[65px] h-[65px] rounded-full bg-[#8D6527] text-white absolute bottom-[30px] 
+  right-0 hidden md:block;
 }
 </style>

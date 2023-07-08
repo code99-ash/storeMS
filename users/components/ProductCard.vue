@@ -1,7 +1,7 @@
 <template>
-    <div class="bg-slate-50 hover:shadow p-2 group flex flex-col justify-between">
-          <img :src="`${imageBase}/${product.image}`" class="h-[280px] object-cover group-hover:scale-90 transition-all" />
-          <div class="p-2 space-y-2">
+    <div class="product-card group">
+          <img :src="`${imageBase}/${product.image}`" class="prod-img group-hover:scale-40 transition-all" />
+          <div class="prod-body">
             <p class="text-slate-500 text-sm">{{product.title}}</p>
             <div class="flex justify-between items-center">
               <h4 class="text-xl font-medium text-slate-500">#{{product.price}}</h4>
@@ -55,6 +55,16 @@ export default {
   }
   }
 }
-
-
 </script>
+
+<style scoped>
+.product-card {
+  @apply bg-white border border-slate-200 hover:shadow-lg p-2 flex flex-col justify-between h-max;
+}
+.prod-img {
+  @apply grow object-cover w-full h-auto scale-[.8] xl:scale-100;
+}
+.prod-body {
+  @apply p-2 space-y-2 flex-none h-[100px] flex flex-col justify-end;
+}
+</style>

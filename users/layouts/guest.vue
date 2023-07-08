@@ -1,7 +1,7 @@
 <template>
     <section>
         <div class="header bg-white">
-            <nav class="container p-[20px] flex justify-between">
+            <nav class="header-nav">
                 <router-link to="/" class="text-[#7C3100] font-medium text-3xl">Classilicious</router-link>
                 <nav class="flex items-center gap-x-5">
                     <router-link to="/cart" class="cart-btn">
@@ -34,3 +34,9 @@ export default {
     }
 }
 </script>
+
+<style scoped>
+.header-nav {
+  @apply py-[20px] flex items-center justify-between space-x-3 max-w-[1200px] mx-auto px-3;
+}
+</style>

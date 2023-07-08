@@ -1,14 +1,14 @@
 <template>
   <div class="">
-    <main class="max-w-[1100px] mx-auto py-3">
-      <div class="flex gap-5">
+    <main class="container py-3">
+      <div class="flex flex-col md:flex-row gap-5">
        
         <div class="grow space-y-2">
           <!-- Cart Item -->
           <cart-item v-for="i in $store.state.cartItems" :key="i.id" :item="i"></cart-item>
         </div>
         <!-- Checkout Info -->
-        <div class="flex-none w-[500px] min-h-[100px] bg-slate-100 rounded p-3">
+        <div class="flex-none sm:w-[350px] xl:w-[500px] min-h-[100px] bg-slate-100 rounded p-3">
           <h1 class="text-xl font-medium text-slate-500">Checkout Info</h1>
           <form class="space-y-3 mt-3" @submit.prevent="checkoutOrder">
             <div class="form-group">
@@ -29,7 +29,6 @@
             </button>
           </form>
         </div>
-     
       </div>
     </main>
   </div>

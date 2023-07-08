@@ -1,11 +1,11 @@
 <template>
-    <div class="p-2 flex gap-2 relative bg-[#F5F5F5]">
+    <div class="p-2 flex gap-2 relative bg-[#F5F5F5] max-w-[500px] md:max-w-full">
             <i 
                 class="pi pi-trash text-red-500 text-lg absolute top-3 right-3 cursor-pointer"
                 @click="removeFromCart"
             ></i>
-            <img :src="`${imageBase}/${item.image}`" class="flex-none w-[175px] h-auto" />
-            <div class="h-full space-y-5 pt-[30px] px-5">
+            <img :src="`${imageBase}/${item.image}`" class="cart-img" />
+            <div class="h-full space-y-5 md:pt-[30px] px-5">
               <h1 class="text-[14px] text-slate-500">{{ item.title }}</h1>
               <div class="flex space-x-3 items-center text-slate-500">
                 <h3 class="">#{{ item.price }}  X</h3>
@@ -56,3 +56,9 @@ export default {
 
 
 </script>
+
+<style scoped>
+.cart-img {
+  @apply flex-none w-[65px] sm:w-[85px] md:w-[120px] h-[65px] sm:h-[85px] md:h-[120px];
+}
+</style>
