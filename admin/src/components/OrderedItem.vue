@@ -2,9 +2,9 @@
     <div class="item-list">
         <img 
             :src="`${imageBase}/${data.image}`" 
-            class="" 
+            class="w-[65px] h-[65px] md:w-[80px] md:h-[80px]" 
         />
-        <div class="grid grid-cols-2 gap-2 py-[10px]">
+        <div class="md:flex items-center gap-2 py-[10px]">
             <div class="text-slate-500 text-sm font-medium max-w-[300px] px-2">{{ data.title }}</div>
             <div class="text-slate-500 max-w-[400px] font-medium px-2 flex items-center gap-x-3">
                 <span>{{ data.price }}</span>

@@ -1,16 +1,18 @@
 <template>
     <section class="order-list">
-      <div class="flex gap-2 w-full">
+      <div class="block md:flex gap-2 w-full relative">
         <!-- Checkbox -->
-        <div :class="['checkbox', selected?'active':'']" @click="toggleSelect">
+        <div :class="['checkbox absolute ', selected?'active':'']" @click="toggleSelect">
             <i class="pi pi-check text-sm"></i>
         </div>
-        <div class="w-2/5 space-y-1 p-3 text-slate-500 font-medium text-sm">
-          <h1 class="">{{ order.reference }}</h1>
-          <h1 class="">NGN {{ order.amount }}</h1>
-          <h1 class="">{{ order.items.length }} Piece(s)</h1>
+        <div class="ml-3 md:w-2/5 space-y-1 p-3 space-y-2 text-slate-500 font-medium text-sm">
+          <h1 class="px-2 w-full md:px-0 border-r md:border-0">{{ order.reference }}</h1>
+          <div class="flex item-center md:block md:space-y-1  ">
+            <h1 class="px-2 md:w-full md:px-0 border-r md:border-0">NGN {{ order.amount }}</h1>
+            <h1 class="px-2 md:w-full md:px-0">{{ order.items.length }} Piece(s)</h1>
+          </div>
         </div>
-        <div class="grow">
+        <div class="pl-3 grow">
             <div class="flex items-center w-full space-y-2">
               <div class="w-2/3 space-y-2 font-medium text-[15px] pt-[20px]">
                 <h1 class="text-[#8D6527]">By: {{ order.customer[0].name }}</h1>
@@ -35,7 +37,7 @@
       </div>
 
       <!-- Ordered Items -->
-      <section :class="['space-y-2 transition-all', !opened? 'scale-0 h-0':'scale-100']">
+      <section :class="['space-y-2 transition-all space-y-3', !opened? 'scale-0 h-0':'scale-100']">
         <ordered-item
             v-for="item in order.products" 
             :key="item._id" class="item-list"

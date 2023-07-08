@@ -1,10 +1,10 @@
 <template>
   <div class="orders">
     <header class="flex items-center gap-x-5 mb-3">
-      <h1 class="text-slate-500 text-xl font-medium">Orders</h1>
+      <h1 class="text-slate-500 md:text-xl font-medium">Orders</h1>
       <div class="flex items-center gap-3">
         <button 
-          class="bg-teal-700 text-[#fff] px-[12px] py-[8px] rounded text-sm" 
+          class="bg-teal-700 text-[#fff] px-[12px] py-[8px] px-[10px] py-[6px] rounded text-xs md:text-sm" 
           @click="markStatus('delivered')"
           :class="{'cursor-not-allowed saturate-50': selected.length == 0}"
           :disabled="selected.length == 0"
@@ -12,7 +12,7 @@
           Mark Delivered ({{ selected.length }})
         </button>
         <button 
-          class="bg-[#C8743E] text-[#fff] px-[12px] py-[8px] rounded text-sm" 
+          class="bg-[#C8743E] text-[#fff] px-[12px] py-[8px] px-[10px] py-[6px] rounded text-xs md:text-sm" 
           @click="markStatus('pending')"
           :class="{'cursor-not-allowed saturate-50': selected.length == 0}"
           :disabled="selected.length == 0"
