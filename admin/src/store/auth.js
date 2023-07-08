@@ -1,4 +1,5 @@
-import { authBase } from '@/utils';
+import { apiBase } from '@/utils';
+import axios from 'axios'
 
 const state = () => ({
     accessToken: '',
@@ -17,13 +18,15 @@ const actions = {
     },
     async userRequest({commit}, token) {
         try {
-            const resp = await this.$axios.get(`${authBase.auth}/user`, { headers: {
+            const resp = await axios.get(`${apiBase.auth}/user`, { headers: {
                 'Authorization': `Bearer ${token}`,
             } })
+            console.log(resp.data)
             localStorage.setItem('user', JSON.stringify(resp.data.user))
             localStorage.setItem('auth-token', token)
-            this.$axios.defaults.headers.common['Authorization'] = token;
-            await commit('USER_REQUEST', resp.data)
+            axios.defaults.headers.common['Authorization'] = token;
+
+            await commit('USER_REQUEST', {user: resp.data.user, token})
         } catch(err) {
             console.log(err)
             localStorage.removeItem('auth-token')
@@ -51,8 +54,9 @@ const mutations = {
         state.authType = type
     },
     SET_ACCESS_TOKEN: (state, token) => state.accessToken = token,
-    USER_REQUEST: (state, data) => {
-        state.user = data;
+    USER_REQUEST: (state, {user, token}) => {
+        state.user = user;
+        state.accessToken = token;
         state.loggedIn = true
     },
     LOGOUT_USER: (state) => {

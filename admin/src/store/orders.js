@@ -24,7 +24,7 @@ const mutations = {
         state.data = state.data.map(each => ids.includes(each._id)? {...each, status} : each)
     },
     SET_ORDERS(state, payload) {
-        console.log(payload)
+        // console.log(payload)
         state.data = payload
     },
     NEW_ORDER(state, payload) {

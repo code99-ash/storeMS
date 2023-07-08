@@ -9,7 +9,7 @@
             Orders <span class="px-2 py-1 text-orange-400">0</span>
           </router-link>
         </div>
-        <button class="account-btn group">
+        <button class="account-btn group" @click="logout">
           <span>Logout</span> <i class="pi pi-sign-out text-xs group-hover:text-white ml-1"></i>
         </button>
       </nav>
@@ -28,29 +28,38 @@
 
 <script setup>
 import { onMounted } from 'vue'
-import store from '@/store'
 import FeedbackItem from '@/components/Feedbacks/FeedbackItem.vue'
-import { io } from 'socket.io-client'
+import { production } from '@/utils'
+import store from '@/store'
+
+// import { io } from 'socket.io-client'
+
+const logout = () => {
+  store.dispatch('auth/logout')
+  if(production == 'false') {
+    window.location = 'http://localhost:8080';
+  }else {
+    window.location = window.location.origin
+  }
+}
 
 onMounted(async() => {
-  console.log(process.env)
-// console.log(`${window.location.origin}`)
   await store.dispatch('products/fetchProducts');
   await store.dispatch('orders/fetchOrders');
 
-  const socket = io('http://localhost:5002')
+  // const socket = io('http://localhost:5002')
 
-  // Check if the socket is defined before using it
-  if(socket) {
-    socket.on('orderChannel', (message) => {
-      console.log(message.data)
+  // // Check if the socket is defined before using it
+  // if(socket) {
+  //   socket.on('orderChannel', (message) => {
+  //     console.log(message.data)
 
-      const { method, data } = message.data;
-      if(method == 'create') {
-        store.dispatch('addProduct', data)
-      }
-    })
-  }
+  //     const { method, data } = message.data;
+  //     if(method == 'create') {
+  //       store.dispatch('addProduct', data)
+  //     }
+  //   })
+  // }
 })
 
 </script>
