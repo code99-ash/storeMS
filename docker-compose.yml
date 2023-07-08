@@ -38,6 +38,8 @@ services:
     depends_on:
       - server
       - authserver
+    environment:
+      - VUE_APP_PRODUCTION_MODE=true
   users:
     build:
       context: ./users
