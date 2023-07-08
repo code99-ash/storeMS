@@ -6,10 +6,10 @@ services:
       dockerfile: Dockerfile
     ports:
       - '4000:4000'
-    depends_on:
-      - mongodb
+    # depends_on:
+    #   - mongodb
     environment:
-      - DB_CONNECT=mongodb://mongodb:27017/store_ms
+      - DB_CONNECT=mongodb://localhost:27017/store_ms
       - PORT=4000
     volumes:
       - ./server/config/mongoose.js:/app/config/mongoose.js
@@ -19,28 +19,34 @@ services:
       dockerfile: Dockerfile
     ports:
       - '4001:4001'
-    depends_on:
-      - mongodb
+    # depends_on:
+    #   - mongodb
     environment:
-      - DB_CONNECT=mongodb://mongodb:27017/store_ms
+      - DB_CONNECT=mongodb://localhost:27017/store_ms
       - TOKEN_SECRET=NJD3402
       - REDIS_PORT=6379
       - REDIS_HOST=127.0.0.1
       - PORT=4001
     volumes:
-      - ./server/config/mongoose.js:/app/config/mongoose.js
+      - ./authserver/config/mongoose.js:/app/config/mongoose.js
   admin:
     build:
       context: ./admin
       dockerfile: Dockerfile
     ports:
       - '8080:8080'
+    depends_on:
+      - server
+      - authserver
   users:
     build:
       context: ./users
       dockerfile: Dockerfile
     ports:
       - '3000:3000'
+    depends_on:
+      - server
+      - authserver
   orderconsumer:
     build:
       context: ./socket/orderconsumer
@@ -57,14 +63,14 @@ services:
       - '5001:5001'
     depends_on:
       - rabbitmq
-  mongodb:
-    image: mongo
-    container_name: mongodb
-    restart: always
-    ports:
-      - 27017:27017
-    volumes:
-      - ./data:/data/db
+  # mongodb:
+  #   image: mongo
+  #   container_name: mongodb
+  #   restart: always
+  #   ports:
+  #     - '27017:27017'
+  #   volumes:
+  #     - ./data:/data/db
   redis:
     image: redis:latest
     ports:

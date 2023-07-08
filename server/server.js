@@ -1,9 +1,9 @@
 const express = require('express')
 const cors = require('cors')
-const connectMongoose = require('./config/mongoose')
 const fileupload = require('express-fileupload')
 
 require('dotenv').config()
+const connectMongoose = require('./config/mongoose')
 
 const app = express();
 

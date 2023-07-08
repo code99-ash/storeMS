@@ -31,6 +31,7 @@ import FeedbackItem from '@/components/Feedbacks/FeedbackItem.vue'
 import { io } from 'socket.io-client'
 
 onMounted(async() => {
+  console.log(process.env)
 // console.log(`${window.location.origin}`)
   await store.dispatch('products/fetchProducts');
   await store.dispatch('orders/fetchOrders');

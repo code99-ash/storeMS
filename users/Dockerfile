@@ -2,7 +2,7 @@ FROM node:lts-alpine
 
 WORKDIR /users
 
-COPY package*.json .
+COPY package.json .
 
 # install project dependencies
 RUN npm install
