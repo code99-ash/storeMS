@@ -1,9 +1,9 @@
 <template>
   <div class="home">
     <header class="flex items-center gap-x-5 mb-3">
-      <h1 class="text-slate-500 text-xl font-medium">Snacks & Treats</h1>
+      <h1 class="text-slate-500 sm:text-xl font-medium">Snacks & Treats</h1>
       <button 
-        class="bg-amber-600 text-amber-50 px-[12px] py-[8px] rounded text-sm"
+        class="bg-amber-600 text-amber-50 px-[12px] py-[8px] rounded text-xs sm:text-sm"
         @click="addModal=true"
       >New Product +</button>
     </header>
