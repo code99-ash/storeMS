@@ -2,8 +2,8 @@ const Product = require('../models/Product')
 const fs = require('fs')
 const path = require('path')
 
-const Producer = require('../Producer')
-const producer = new Producer()
+// const Producer = require('../Producer')
+// const producer = new Producer()
 
 module.exports = {
     fetchProducts: async(req, res) => {
@@ -16,10 +16,10 @@ module.exports = {
         }
     },
     addProduct: async(req, res) => {
-        // const exists = await Product.findOne({title: req.body.title});
-        // if(exists) {
-        //     return res.status(400).send('Product title already exists, please try something else')
-        // }
+        const exists = await Product.findOne({title: req.body.title});
+        if(exists) {
+            return res.status(400).send('Product title already exists, please try something else')
+        }
         const file = req.files.files;
         const filename = '_' + new Date().getTime().toString() + file.name
 
@@ -35,7 +35,10 @@ module.exports = {
                 }
             
                 const data = await Product.create({...req.body, image: filename});
-                producer.broadcastNewProduct('Product', {method: 'create', data})
+
+                // // broadcast to users
+                // producer.broadcastNewProduct('Product', {method: 'create', data})
+
                 res.json(data)
             });
         } catch(err) {
@@ -84,7 +87,7 @@ module.exports = {
     
                 // Delete product from DB
                 await Product.findByIdAndDelete(req.body._id);
-                producer.broadcastNewProduct('Product', {method: 'remove', data: req.body._id})
+                // producer.broadcastNewProduct('Product', {method: 'remove', data: req.body._id})
                 res.send('Successfully deleted product data')
             })
         } catch(err) {
