@@ -40,6 +40,7 @@ services:
       - authserver
     environment:
       - VUE_APP_PRODUCTION_MODE=true
+      - VUE_APP_PRODUCTION_HOST=http://localhost
   users:
     build:
       context: ./users
@@ -51,6 +52,7 @@ services:
       - authserver
     environment:
       - VUE_APP_PRODUCTION_MODE=true
+      - VUE_APP_PRODUCTION_HOST=http://localhost
   orderconsumer:
     build:
       context: ./socket/orderconsumer

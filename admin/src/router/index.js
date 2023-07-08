@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import { production } from '../utils'
+import { production, productionHost } from '../utils'
 import store from '@/store'
 
 const routes = [
@@ -21,18 +21,18 @@ const router = createRouter({
 })
 
 router.beforeEach(async (to, from, next) => {
-  const redirect = production == 'false'? 'http://localhost:3000':window.location.origin
+  const redirect = production == 'false'? 'http://localhost:3000' : productionHost
   const token = localStorage.getItem('auth-token');
   if(!token) {
     window.location = redirect;
   }else {
     await store.dispatch('auth/userRequest', token)
+    if(store.state.auth.loggedIn) {
+      next();
+      return;
+    }
   }
-  if(store.state.auth.loggedIn) {
-    next();
-    return;
-  }
-  // next()
+  next()
   window.location = redirect
 })
 

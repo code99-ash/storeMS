@@ -1,5 +1,5 @@
 <template>
-  <section>
+  <section v-if="$store.state.loggedIn">
     <header class="header">
       <nav class="container header-nav">
         <router-link :to="{name: 'Home'}" class="logo">Classilicious</router-link>
@@ -24,13 +24,17 @@
       <router-view/>
     </div>
   </section>
-</template>
+  <section v-else class="bg-[#dfbe8c] h-[100vh] w-[100vw] flex justify-center items-center">
+    <i class="pi pi-spin pi-spinner text-5xl xl:text-[45%] text-amber-800"></i>
+  </section>
+</template> 
 
 <script setup>
 import { onMounted } from 'vue'
 import FeedbackItem from '@/components/Feedbacks/FeedbackItem.vue'
 import { production } from '@/utils'
 import store from '@/store'
+// import { productionHost } from '@/utils'
 
 // import { io } from 'socket.io-client'
 
