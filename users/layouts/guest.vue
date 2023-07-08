@@ -45,6 +45,7 @@ export default {
 
 <style scoped>
 .header-nav {
-  @apply py-[20px] flex items-center justify-between space-x-3 max-w-[1200px] mx-auto px-3 xl:px-0;
+  @apply py-[20px] flex items-center justify-between space-x-3 max-w-[1200px] 
+  mx-auto px-3 xl:px-0 border-b;
 }
 </style>

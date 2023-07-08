@@ -3,26 +3,29 @@
     <main class="container py-3">
       <h1 class="font-medium text-2xl mb-5 pl-3">Order History</h1>
           <!-- Order History -->
-          <div class="border border-red-500 text-red-500 py-[25px]" v-if="!$store.state.auth.loggedIn">
-            <h4 class="text-center">No Access, please login</h4>
-          </div>
-          <template v-else-if="$store.state.auth.loggedIn && open">
-            <div class="bg-white mb-2 max-w-[600px] p-3" v-for="i in $store.state.orders" :key="i._id">
-                <div class="h-full grow flex flex-col md:flex-row gap-3">
-                    <div class="w-full md:w-2/3 space-y-1 md:space-y-2">
-                        <h1 class="text-xs md:text-sm text-slate-500">REF - {{ i.reference }}</h1>
-                        <h1 class="text-xs md:text-[14px] text-slate-500">Status - {{ i.status }}</h1>
-                    </div>
-                    <div class="w-full md:w-1/3 flex items-center gap-3 md:flex-col space-y-1 md:space-y-3">
-                        <h1 class="text-[14px] text-slate-500">NGN {{ i.amount }}</h1>
-                        <h1 class="text-[14px] text-slate-500">{{ i.createdAt }}</h1>
+          <template v-if="$store.state.auth.loggedIn">
+              <div v-if="!open" class="flex justify-center">
+                <i class="pi pi-spin pi-spinner text-5xl text-slate-300"></i>
+              </div>
+              <template v-else>
+                <div class="bg-white mb-2 max-w-[600px] p-3" v-for="i in $store.state.orders" :key="i._id">
+                    <div class="h-full grow flex flex-col md:flex-row gap-3">
+                        <div class="w-full md:w-2/3 space-y-1 md:space-y-2">
+                            <h1 class="text-xs md:text-sm text-slate-500">REF - {{ i.reference }}</h1>
+                            <h1 class="text-xs md:text-[14px] text-slate-500">Status - {{ i.status }}</h1>
+                        </div>
+                        <div class="w-full md:w-1/3 flex items-center gap-3 md:flex-col space-y-1 md:space-y-3">
+                            <h1 class="text-[14px] text-slate-500">NGN {{ i.amount }}</h1>
+                            <h1 class="text-[14px] text-slate-500">{{ i.createdAt }}</h1>
+                        </div>
                     </div>
                 </div>
-            </div>
+              </template>
           </template>
-          <div v-else-if="$store.state.auth.loggedIn && !open" class="flex justify-center">
-            <i class="pi pi-spin pi-spinner text-5xl text-slate-300"></i>
+          <div class="border border-amber-500 text-red-500 py-[25px]" v-else>
+            <h4 class="text-center">No Access, please login</h4>
           </div>
+          
 
     </main>
   </div>
@@ -40,7 +43,8 @@ export default {
   },
   methods: {
     async fetchOrders() {
-      await this.$store.dispatch('fetchOrders', this.$store.state.auth.user._id)
+      const user = localStorage.getItem('user')
+      await this.$store.dispatch('fetchOrders', JSON.parse(user)._id)
       this.open = true
     }
   }

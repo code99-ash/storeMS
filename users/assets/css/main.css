@@ -88,7 +88,7 @@ code {
 }
 
 .cart-btn {
-  @apply bg-[#7C3100] p-[8px] text-[14px] text-white rounded border border-white;
+  @apply bg-[#7C3100] p-[8px] text-[14px] text-white border border-white;
 }
 .account-btn {
   @apply text-[#7C3100] p-[8px] text-[14px] bg-slate-50 rounded;
