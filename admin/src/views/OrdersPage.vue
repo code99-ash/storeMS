@@ -74,6 +74,6 @@ const markStatus = async(status) => {
 
 <style lang="scss" scoped>
 .order-list {
-  @apply space-y-3 p-2 rounded bg-[#F5F5F5];
+  @apply space-y-3 p-2 rounded bg-[#F5F5F5] mb-2;
 }
 </style>

@@ -37,7 +37,7 @@
       </div>
 
       <!-- Ordered Items -->
-      <section :class="['space-y-2 transition-all space-y-3', !opened? 'scale-0 h-0':'scale-100']">
+      <section :class="['space-y-2 transition-all', !opened? 'scale-0 h-0':'scale-100']">
         <ordered-item
             v-for="item in order.products" 
             :key="item._id" class="item-list"
