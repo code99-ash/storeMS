@@ -1,6 +1,6 @@
-import { apiBase } from '@/utils';
+import { authBase } from '@/utils';
 
-export const state = () => ({
+export const state = ()     => ({
     accessToken: '',
     loggedIn: '',
     user: '',
@@ -17,7 +17,7 @@ export const actions = {
     },
     async userRequest({commit}, token) {
         try {
-            const resp = await this.$axios.get(`${window.location.origin}/${apiBase.auth}/user`, { headers: {
+            const resp = await this.$axios.get(`${authBase.auth}/user`, { headers: {
                 'Authorization': `Bearer ${token}`,
             } })
             localStorage.setItem('user', JSON.stringify(resp.data.user))

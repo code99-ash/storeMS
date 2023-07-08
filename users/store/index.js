@@ -1,4 +1,4 @@
-import { apiBase } from '@/utils';
+import { centralBase } from '@/utils';
 
 export const state = () => ({
     cartAmount: '0.00',
@@ -31,7 +31,7 @@ export const state = () => ({
 export const actions = {
     // Products and Cart
     async fetchProducts({commit}) {
-        const response = await this.$axios.get(`${apiBase.central}/products`);
+        const response = await this.$axios.get(`${centralBase}/products`);
         commit('SET_PRODUCTS', response.data)
       },
       addProduct({commit}, payload) {

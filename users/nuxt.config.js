@@ -4,6 +4,7 @@ export default {
     port: 3000,
     host: '0.0.0.0',
   },
+  ssr: false,
   head: {
     title: 'storeMS',
     htmlAttrs: {
@@ -36,7 +37,7 @@ export default {
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
-    
+    '@nuxtjs/dotenv'
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules

@@ -41,7 +41,7 @@
 </template>
 
 <script>
-import { apiBase } from '@/utils'
+import { authBase } from '@/utils'
 export default {
     props: ['modelValue'],
     emits: ['update:modelValue'],
@@ -85,7 +85,7 @@ export default {
                 fd.append('email', email)
                 fd.append('password', password)
 
-                const res = await this.$axios.post(`${apiBase.auth}/register`, {name, email, password});
+                const res = await this.$axios.post(`${authBase}/register`, {name, email, password});
                 console.log(res)
                 this.$emit('update:modelValue', 'login')
             } catch(err) {

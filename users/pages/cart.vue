@@ -37,7 +37,7 @@
 
 
 <script>
-import { apiBase } from '~/utils';
+import { centralBase } from '~/utils';
 import CartItem from '../components/CartItem.vue';
 export default {
   components: { CartItem },
@@ -81,7 +81,7 @@ export default {
       console.log(data)
 
       try {
-        const resp = await this.$axios.$post(`${apiBase.central}/orders`, {...data})
+        const resp = await this.$axios.$post(`${centralBase}/orders`, {...data})
         console.log(resp)
       }catch(err) {
         console.log(err)

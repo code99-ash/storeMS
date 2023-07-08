@@ -24,11 +24,11 @@
 </template>
 
 <script>
-import { apiBase } from '@/utils'
+import { centralBase } from '@/utils'
 export default {
   props: ['item'],
   data: () => ({
-    imageBase: `${apiBase.central}/images`,
+    imageBase: `${centralBase}/images`,
     qty: 0
   }),
   mounted() {

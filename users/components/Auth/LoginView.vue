@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import { apiBase } from '@/utils'
+import { authBase } from '@/utils'
 export default {
     data: () => ({
         saving: false,
@@ -51,7 +51,7 @@ export default {
             this.saving = true;
 
             try {
-                const res = await this.$axios.post(`${apiBase.auth}/login`, {email, password});
+                const res = await this.$axios.post(`${authBase}/login`, {email, password});
                 console.log(res)
                 this.$store.dispatch('auth/setAccessToken', res.data);
 
