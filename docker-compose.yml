@@ -9,7 +9,7 @@ services:
     depends_on:
       - mongodb
     environment:
-      - DB_CONNECT=mongodb://localhost:27017/store_ms
+      - DB_CONNECT=mongodb://mongodb:27017/store_ms
       - PORT=4000
     volumes:
       - ./server/config/mongoose.js:/app/config/mongoose.js
@@ -22,7 +22,7 @@ services:
     depends_on:
       - mongodb
     environment:
-      - DB_CONNECT=mongodb://localhost:27017/store_ms
+      - DB_CONNECT=mongodb://mongodb:27017/store_ms
       - TOKEN_SECRET=NJD3402
       - REDIS_PORT=6379
       - REDIS_HOST=127.0.0.1
