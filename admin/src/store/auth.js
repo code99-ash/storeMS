@@ -1,29 +1,29 @@
 import { authBase } from '@/utils';
 
-export const state = ()     => ({
+const state = () => ({
     accessToken: '',
-    loggedIn: false,
+    loggedIn: '',
     user: '',
     openAuth: false,
     authType: 'login'
 })
 
-export const actions = {
+const actions = {
     async setAccessToken({commit, dispatch}, token) {
-        // console.log(token)
+        console.log(token)
         localStorage.setItem('auth-token', token)
         await dispatch('userRequest', token)
         commit('SET_ACCESS_TOKEN', token)
     },
     async userRequest({commit}, token) {
         try {
-            const resp = await this.$axios.get(`${authBase}/user`, { headers: {
+            const resp = await this.$axios.get(`${authBase.auth}/user`, { headers: {
                 'Authorization': `Bearer ${token}`,
             } })
             localStorage.setItem('user', JSON.stringify(resp.data.user))
             localStorage.setItem('auth-token', token)
             this.$axios.defaults.headers.common['Authorization'] = token;
-            await commit('SET_USER_DATA', {user: resp.data.user, token})
+            await commit('USER_REQUEST', resp.data)
         } catch(err) {
             console.log(err)
             localStorage.removeItem('auth-token')
@@ -40,12 +40,7 @@ export const actions = {
     }
 }
 
-export const mutations = {
-    SET_USER_DATA(state, {user, token}) {
-        state.user = user
-        state.accessToken = token
-        state.loggedIn = true
-    },
+const mutations = {
     SET_OPENAUTH(state, val) {
         state.openAuth = val ?? false;
         if(!!val) {
@@ -66,4 +61,8 @@ export const mutations = {
         localStorage.removeItem('auth-token')
         localStorage.removeItem('user')
     }
+}
+
+export const auth = {
+    namespaced: true, state, actions, mutations
 }

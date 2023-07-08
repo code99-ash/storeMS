@@ -49,11 +49,11 @@ module.exports = {
         }
         const token = jwt.sign(tokenData, process.env.TOKEN_SECRET, { expiresIn: '1h' });
 
-        // Connect To Redis
-        const client = await loadClient()
+        // // Connect To Redis
+        // const client = await loadClient()
 
-        // Store the token in Redis with an expiration time
-        client.setEx(token, 3600, JSON.stringify(tokenData));
+        // // Store the token in Redis with an expiration time
+        // client.setEx(token, 3600, JSON.stringify(tokenData));
     
         res.header('auth-token', token).send(token);
       }catch(err) {
@@ -65,13 +65,14 @@ module.exports = {
     userMe: async(req, res, next) => {
       const authorization = req.header("Authorization");
       const token = authorization?.split(' ')[1];
+
       if(!token) return res.status(400).send('Access Denied');
 
       try {
-          // Connect to Redis
-          const client = await loadClient()
-          const value = await client.get(token);
-          if(!value)  return res.status(401).json({ error: 'Invalid token' });
+          // // Connect to Redis
+          // const client = await loadClient()
+          // const value = await client.get(token);
+          // if(!value)  return res.status(401).json({ error: 'Invalid token' });
 
           const verified = jwt.verify(token, process.env.TOKEN_SECRET);
           req.user = verified

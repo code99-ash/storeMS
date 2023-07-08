@@ -1,5 +1,4 @@
 import { centralBase } from '@/utils';
-
 export const state = () => ({
     cartAmount: '0.00',
     cartItems: [],
@@ -25,14 +24,19 @@ export const state = () => ({
         variant: 'success',
         duration: 3000
       }
-    ]
+    ],
+    orders: []
 })
 
 export const actions = {
     // Products and Cart
-    async fetchProducts({commit}) {
+      async fetchProducts({commit}) {
         const response = await this.$axios.get(`${centralBase}/products`);
         commit('SET_PRODUCTS', response.data)
+      },
+      async fetchOrders({commit}, id) {
+        const response = await this.$axios.get(`${centralBase}/orders/history/${id}`);
+        commit('SET_ORDERS', response.data)
       },
       addProduct({commit}, payload) {
         commit('ADD_PRODUCT', payload)
@@ -71,9 +75,13 @@ export const actions = {
 
 export const mutations = {
     // products & Cart
-    SET_PRODUCTS(state, payload) {
-        console.log(payload)
+      SET_PRODUCTS(state, payload) {
+        // console.log(payload)
         state.products = payload
+      },
+      SET_ORDERS(state, payload) {
+        console.log(payload)
+        state.orders = payload
       },
   
       ADD_PRODUCT(state, payload) {

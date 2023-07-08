@@ -72,5 +72,15 @@ module.exports = {
             console.log("err",err)
             res.status(500).send('Unable to update order status');
         }
+    },
+
+    getOrderHistory: async(req, res) => {
+        try {
+            
+            const data =await Payment.find({ user: req.params.id })
+            res.json(data)
+        } catch(err) {
+            res.status(400).send('Unable to fetch orders, please try refreshing the request')
+        }
     }
-}
+} 

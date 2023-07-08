@@ -1,32 +1,49 @@
 <template>
-    <div class="">
-      <main class="container py-3">
-        <h1 class="font-medium text-2xl mb-5 pl-3">Order History</h1>
-            <!-- Cart Item -->
-        <!-- <div class="p-2 flex gap-2 relative bg-[#F5F5F5] md:w-2/3 mb-2" v-for="i in items" :key="i.id">
-            <img :src="require(`@/assets/images/${i.image}`)" class="flex-none w-[80px] h-[80px]" />
-            <div class="h-full grow flex flex-col md:flex-row gap-3">
-                <div class="w-full md:w-2/3 space-y-1 md:space-y-5">
-                    <h1 class="text-xs md:text-sm text-slate-500">{{ i.title }}</h1>
-                    <h1 class="text-xs md:text-[14px] text-slate-500">REF - {{ i.ref }}</h1>
-                </div>
-                <div class="w-full md:w-1/3 flex items-center gap-3 md:flex-col space-y-1 md:space-y-3">
-                    <h1 class="text-[14px] text-slate-500">NGN {{ i.price }}</h1>
-                    <h1 class="text-[14px] text-slate-500">{{ i.date }}</h1>
+  <div class="">
+    <main class="container py-3">
+      <h1 class="font-medium text-2xl mb-5 pl-3">Order History</h1>
+          <!-- Order History -->
+          <div class="border border-red-500 text-red-500 py-[25px]" v-if="!$store.state.auth.loggedIn">
+            <h4 class="text-center">No Access, please login</h4>
+          </div>
+          <template v-else-if="$store.state.auth.loggedIn && open">
+            <div class="bg-white mb-2 max-w-[600px] p-3" v-for="i in $store.state.orders" :key="i._id">
+                <div class="h-full grow flex flex-col md:flex-row gap-3">
+                    <div class="w-full md:w-2/3 space-y-1 md:space-y-2">
+                        <h1 class="text-xs md:text-sm text-slate-500">REF - {{ i.reference }}</h1>
+                        <h1 class="text-xs md:text-[14px] text-slate-500">Status - {{ i.status }}</h1>
+                    </div>
+                    <div class="w-full md:w-1/3 flex items-center gap-3 md:flex-col space-y-1 md:space-y-3">
+                        <h1 class="text-[14px] text-slate-500">NGN {{ i.amount }}</h1>
+                        <h1 class="text-[14px] text-slate-500">{{ i.createdAt }}</h1>
+                    </div>
                 </div>
             </div>
-        </div> -->
-      </main>
-    </div>
-  </template>
+          </template>
+          <div v-else-if="$store.state.auth.loggedIn && !open" class="flex justify-center">
+            <i class="pi pi-spin pi-spinner text-5xl text-slate-300"></i>
+          </div>
+
+    </main>
+  </div>
+</template>
   
   
 <script>
 export default {
+  layout: 'guest',
   data: () => ({
-    items: [],
-    layout: 'guest'
-  })
+    open: false,
+  }),
+  mounted() {
+    this.fetchOrders()
+  },
+  methods: {
+    async fetchOrders() {
+      await this.$store.dispatch('fetchOrders', this.$store.state.auth.user._id)
+      this.open = true
+    }
+  }
 }
 </script>
   

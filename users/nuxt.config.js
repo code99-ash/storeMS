@@ -4,7 +4,6 @@ export default {
     port: 3000,
     host: '0.0.0.0',
   },
-  ssr: false,
   head: {
     title: 'storeMS',
     htmlAttrs: {
