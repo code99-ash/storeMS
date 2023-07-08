@@ -1,6 +1,6 @@
 <template>
   <section>
-    <header class="bg-white border-b border-slate-300">
+    <header class="header">
       <nav class="container header-nav">
         <router-link :to="{name: 'Home'}" class="logo">Classilicious</router-link>
         <div class="flex items-center gap-x-3">
@@ -9,7 +9,9 @@
             Orders <span class="px-2 py-1 text-orange-400">0</span>
           </router-link>
         </div>
-        <button class="account-btn">Admin <i class="pi pi-lock text-sm"></i></button>
+        <button class="account-btn group">
+          <span>Logout</span> <i class="pi pi-sign-out text-xs group-hover:text-white ml-1"></i>
+        </button>
       </nav>
     </header>
     <div class="container py-[20px]">
@@ -61,6 +63,9 @@ onMounted(async() => {
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
 }
+.header {
+  @apply bg-white border-b border-slate-300;
+}
 .header-nav {
   @apply flex items-center justify-between py-[20px] min-h-[65px];
 
@@ -71,9 +76,35 @@ onMounted(async() => {
 }
 .account-btn {
   @apply border border-[#7C3100] text-[#7C3100] font-bold px-[12px] py-[8px] rounded
-  hover:bg-[#7C3100] hover:text-white transition-all;
+  hover:bg-[#7C3100] hover:text-[#fff] transition-all;
 }
 .logo {
   @apply text-[#7C3100] font-medium text-3xl;
+}
+
+@media (max-width: 600px) {
+  .header {
+    // @apply fixed h-[100vh] w-full;
+    .header-nav {
+      .logo {
+        @apply text-base;
+      }
+      div {
+        .links {
+          @apply text-sm;
+        }
+      }
+    }
+  }
+  .account-btn {
+    @apply border-none;
+
+    span {
+      @apply hidden;
+    }
+    .pi {
+      @apply text-slate-800;
+    }
+  }
 }
 </style>
