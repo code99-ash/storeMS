@@ -1,9 +1,11 @@
 const router = require('express').Router();
 const { makeOrder, updateOrderStatus, fetchOrders, getOrderHistory } = require('../controllers/OrderController')
+const { verifyAdminAccess, verifyUserAccess } = require('../middleware/verifyAcess')
 
-router.get('/', (...params) => fetchOrders(...params));
-router.post('/', (...params) => makeOrder(...params));
-router.put('/', (...params) => updateOrderStatus(...params));
-router.get('/history/:id', (...params) => getOrderHistory(...params));
+
+router.post('/', verifyUserAccess, (...params) => makeOrder(...params));
+router.get('/history/:id', verifyUserAccess, (...params) => getOrderHistory(...params));
+router.get('/', verifyAdminAccess, (...params) => fetchOrders(...params));
+router.put('/', verifyAdminAccess, (...params) => updateOrderStatus(...params));
 
 module.exports = router;
