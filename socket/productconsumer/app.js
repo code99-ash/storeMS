@@ -30,8 +30,9 @@ async function consumePoductData() {
 
 const server = http.createServer(app);
 const io = socketio(server, { cors: {
-    origin: "http://localhost:8080",
-    methods: ["GET", "POST"]
+    origin: "*",
+    methods: ["GET", "POST"],
+    optionsSuccessStatus: 204
 }});
 
 const clients = {}; // Store socket instances for connected clients

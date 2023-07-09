@@ -2,8 +2,8 @@ const Product = require('../models/Product')
 const fs = require('fs')
 const path = require('path')
 
-// const Producer = require('../Producer')
-// const producer = new Producer()
+const Producer = require('../Producer')
+const producer = new Producer()
 
 module.exports = {
     fetchProducts: async(req, res) => {
@@ -87,7 +87,10 @@ module.exports = {
     
                 // Delete product from DB
                 await Product.findByIdAndDelete(req.body._id);
+
+                // Broadcast
                 // producer.broadcastNewProduct('Product', {method: 'remove', data: req.body._id})
+
                 res.send('Successfully deleted product data')
             })
         } catch(err) {
