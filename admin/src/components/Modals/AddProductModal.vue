@@ -42,7 +42,9 @@
 <script setup>
 import { reactive, ref } from 'vue'
 import store from '@/store'
-import axios from 'axios'
+// import axios from 'axios'
+import axios from '@/axios-interceptor'
+
 import { apiBase } from '@/utils'
 
 defineProps(['modelValue'])

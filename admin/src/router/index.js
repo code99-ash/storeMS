@@ -13,6 +13,11 @@ const routes = [
     name: 'Orders',
     component: () => import('@/views/OrdersPage.vue'),
   },
+  {
+    path: '/access-denied',
+    name: 'Invalid',
+    component: () => import('@/views/AccessDenied.vue'),
+  },
 ]
 
 const router = createRouter({

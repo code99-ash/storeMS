@@ -1,5 +1,6 @@
 import { apiBase } from '@/utils';
-import axios from 'axios'
+// import axios from 'axios'
+import axios from '@/axios-interceptor'
 
 const state = () => ({
     accessToken: '',
@@ -18,9 +19,7 @@ const actions = {
     },
     async userRequest({commit}, token) {
         try {
-            const resp = await axios.get(`${apiBase.auth}/user`, { headers: {
-                'Authorization': `Bearer ${token}`,
-            } })
+            const resp = await axios.get(`${apiBase.auth}/user`)
             console.log(resp.data)
             localStorage.setItem('user', JSON.stringify(resp.data.user))
             localStorage.setItem('auth-token', token)

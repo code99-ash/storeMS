@@ -1,5 +1,6 @@
 import { apiBase } from '@/utils';
-import axios from 'axios'
+// import axios from 'axios'
+import axios from '@/axios-interceptor'
 
 const state = {
     data: []

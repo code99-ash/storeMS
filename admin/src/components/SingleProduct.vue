@@ -30,7 +30,9 @@
 
 <script setup>
 import { ref } from 'vue'
-import axios from 'axios'
+// import axios from 'axios'
+import axios from '@/axios-interceptor'
+
 import store from '@/store'
 import { apiBase } from '@/utils'
 import DeleteProduct from './Modals/DeleteProduct.vue'

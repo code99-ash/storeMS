@@ -1,5 +1,5 @@
 <template>
-  <section v-if="$store.state.loggedIn">
+  <section>
     <header class="header">
       <nav class="container header-nav">
         <router-link :to="{name: 'Home'}" class="logo">Classilicious</router-link>
@@ -24,19 +24,20 @@
       <router-view/>
     </div>
   </section>
-  <section v-else class="bg-[#dfbe8c] h-[100vh] w-[100vw] flex justify-center items-center">
-    <i class="pi pi-spin pi-spinner text-5xl xl:text-[45%] text-amber-800"></i>
-  </section>
 </template> 
 
 <script setup>
-import { onMounted } from 'vue'
+import { onMounted, onBeforeMount } from 'vue'
 import FeedbackItem from '@/components/Feedbacks/FeedbackItem.vue'
 import { production } from '@/utils'
 import store from '@/store'
+import axios from '@/axios-interceptor'
+import { useRouter } from 'vue-router'
 // import { productionHost } from '@/utils'
 
 // import { io } from 'socket.io-client'
+
+const router = useRouter()
 
 const logout = () => {
   store.dispatch('auth/logout')
@@ -46,6 +47,24 @@ const logout = () => {
     window.location = window.location.origin
   }
 }
+
+onBeforeMount(() => {
+  axios.interceptors.response.use(undefined, function (err) {
+    console.log(err, err.response.status)
+    return new Promise(function () {
+      if(err.response.status == 403) {
+        return router.push({name: 'Invalid'})
+      }
+      if (err.response.status >= 400 && err.response.status < 403 && err.config && !err.config.__isRetryRequest) {
+      // if you ever get an unauthorized, logout the user
+        store.dispatch('auth/logout')
+      // you can also redirect to /login if needed !
+      }
+      throw err;
+    });
+  });
+
+})
 
 onMounted(async() => {
   await store.dispatch('products/fetchProducts');
