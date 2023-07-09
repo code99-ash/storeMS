@@ -11,6 +11,8 @@ services:
     environment:
       - DB_CONNECT=mongodb://mongodb:27017/store_ms
       - PORT=4000
+      - REDIS_PORT=6379
+      - REDIS_HOST=redis
     volumes: 
       - ./server/config/mongoose.js:/app/config/mongoose.js
   authserver:
@@ -25,7 +27,7 @@ services:
       - DB_CONNECT=mongodb://mongodb:27017/store_ms
       - TOKEN_SECRET=NJD3402
       - REDIS_PORT=6379
-      - REDIS_HOST=127.0.0.1
+      - REDIS_HOST=redis
       - PORT=4001
     volumes:
       - ./authserver/config/mongoose.js:/app/config/mongoose.js
