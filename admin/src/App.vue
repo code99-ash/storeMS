@@ -6,7 +6,7 @@
         <div class="flex items-center gap-x-3">
           <router-link :to="{name: 'Home'}" class="links">Snacks & Treats</router-link>
           <router-link :to="{name: 'Orders'}" class="links">
-            Orders <span class="px-2 py-1 text-orange-400">0</span>
+            Orders <span class="px-2 py-1 text-orange-400">{{ $store.state.orders.pendingOrder }}</span>
           </router-link>
         </div>
         <button class="account-btn group" @click="logout">
@@ -27,7 +27,7 @@
 </template> 
 
 <script setup>
-import { onMounted, onBeforeMount } from 'vue'
+import { onMounted, onBeforeMount, computed } from 'vue'
 import FeedbackItem from '@/components/Feedbacks/FeedbackItem.vue'
 import { production } from '@/utils'
 import store from '@/store'

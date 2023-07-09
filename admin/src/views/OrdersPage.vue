@@ -37,6 +37,7 @@ import OrderRef from '@/components/OrderRef'
 import { ref } from 'vue'
 import store from '@/store'
 import { apiBase } from '@/utils' 
+import axios from '@/axios-interceptor'
 
 let selected = ref([])
 
@@ -51,7 +52,7 @@ const markStatus = async(status) => {
 
   try {
     const fd = {ids: selected.value, status}
-    await this.$axios.put(`${apiBase.central}/orders`, fd)
+    await axios.put(`${apiBase.central}/orders`, fd)
     await store.dispatch('orders/updateOrderStatus', fd)
   
     await store.dispatch('addFeedback', {
@@ -62,6 +63,7 @@ const markStatus = async(status) => {
   
     selected.value = []
   } catch(err) {
+    // console.log(err)
     store.dispatch('addFeedback', {
       heading: 'Error Alert',
       variant: 'error',
