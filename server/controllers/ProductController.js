@@ -9,7 +9,7 @@ module.exports = {
     fetchProducts: async(req, res) => {
         try {
             const data = await Product.find();
-            console.log(data)
+            // console.log(data)
             res.json(data)
         } catch(err) {
             res.status(400).send('Unable to fetch products, please try refreshing the request')
