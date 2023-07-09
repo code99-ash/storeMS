@@ -38,15 +38,17 @@ export default {
   data: () => ({
     open: false,
   }),
-  mounted() {
+  beforeMount() {
     this.fetchOrders()
+  },
+  mounted() {
   },
   methods: {
     async fetchOrders() {
       const user = localStorage.getItem('user')
       await this.$store.dispatch('fetchOrders', JSON.parse(user)._id)
       this.open = true
-    }
+    },
   }
 }
 </script>
