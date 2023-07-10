@@ -3,6 +3,7 @@ const loadClient = require('../config/redis')
 const verifyAdminAccess = async(req, res, next) => {
     const authorization = req.header("Authorization");
     const token = authorization?.split(' ')[1];
+    // console.log(token)
 
     if(!token) return res.status(403).send('Access Denied !!');
 
@@ -11,7 +12,7 @@ const verifyAdminAccess = async(req, res, next) => {
         const client = await loadClient()
         let user = await client.get(token);
         user = JSON.parse(user)
-        // console.log(user.role)
+        // console.log(user)
         if(!user._id || user.role !== 'admin')  return res.status(403).send('Access Denied. Admin authorization required !!');
 
         next()
@@ -24,7 +25,7 @@ const verifyUserAccess = async (req, res, next) => {
     const authorization = req.header("Authorization");
     const token = authorization?.split(' ')[1];
 
-    console.log(token)
+    // console.log(token)
     if(!token) return res.status(403).send('Access Denied, please login !!');
 
     try {
@@ -32,7 +33,7 @@ const verifyUserAccess = async (req, res, next) => {
         const client = await loadClient()
         let user = await client.get(token);
         user = JSON.parse(user)
-        console.log(user)
+        // console.log(user)
         if(!user)  return res.status(403).send('Access Denied, please login !!');
 
         next()

@@ -1,6 +1,9 @@
 const Order = require('../models/Order')
 const Payment = require('../models/Payment')
 
+const Producer = require('../Producer')
+const producer = new Producer()
+
 module.exports = {
     fetchOrders: async(req, res) => {
         try {
@@ -67,6 +70,16 @@ module.exports = {
                 { _id: { $in: req.body.ids } },
                 { status: req.body.status }
             )
+            console.log(req.body.users)
+            const message = {
+                orderIds: req.body.ids,
+                status: req.body.status,
+                users: req.body.users
+            }
+            // console.log(message)
+            // // broadcast to user
+            producer.sendMessage('Order', {method: 'statusUpdate', message})
+
             res.send('Successfully updated '+req.body.ids.length+ ' order statuses')
         } catch(err) {
             console.log("err",err)

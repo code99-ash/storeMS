@@ -37,7 +37,7 @@ module.exports = {
                 const data = await Product.create({...req.body, image: filename});
 
                 // // broadcast to users
-                // producer.broadcastNewProduct('Product', {method: 'create', data})
+                // producer.sendMessage('Product', {method: 'create', data})
 
                 res.json(data)
             });
@@ -89,7 +89,7 @@ module.exports = {
                 await Product.findByIdAndDelete(req.body._id);
 
                 // Broadcast
-                // producer.broadcastNewProduct('Product', {method: 'remove', data: req.body._id})
+                // producer.sendMessage('Product', {method: 'remove', data: req.body._id})
 
                 res.send('Successfully deleted product data')
             })

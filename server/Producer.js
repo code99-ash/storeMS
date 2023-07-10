@@ -9,7 +9,7 @@ class Producer {
         this.channel = await connection.createChannel()
     }
 
-    async broadcastNewProduct(routingKey, data) {
+    async sendMessage(routingKey, data) {
         if(!this.channel) {
             await this.createChannel()
         }

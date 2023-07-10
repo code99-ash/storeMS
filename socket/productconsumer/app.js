@@ -7,7 +7,7 @@ const express = require('express')
 
 const app = express();
 
-async function consumePoductData() {
+async function consumeProductData() {
     const connection = await amqp.connect(config.rabbitMQ.url)
     const channel = await connection.createChannel();
 
@@ -50,7 +50,7 @@ io.on('connection', (socket) => {
   });
 });
 
-consumePoductData().catch(console.error)
+consumeProductData().catch(console.error)
 
 server.listen(5001, () => {
   console.log('Server listening on port 5001');

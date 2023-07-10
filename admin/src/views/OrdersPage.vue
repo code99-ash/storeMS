@@ -41,17 +41,23 @@ import axios from '@/axios-interceptor'
 
 let selected = ref([])
 
-const selectOrder = ({id}) => {
-  if(!selected.value.includes(id)) return selected.value.push(id)
+const selectOrder = ({id, user}) => {
+  if(!selected.value.some(each => each.id == id)) return selected.value.push({id, user})
   // console.log({id, selected})
-  selected.value = selected.value.filter(each => each !== id)
+  selected.value = selected.value.filter(each => each.id !== id)
 }
 
 const markStatus = async(status) => {
   if(selected.value.length == 0) return;
+  // console.log(selected.value)
+  // console.log(selected.value.map(each => each.id))
 
   try {
-    const fd = {ids: selected.value, status}
+    const fd = {
+      ids: selected.value.map(each => each.id), 
+      status, 
+      users: selected.value.map(each => each.user)
+    }
     await axios.put(`${apiBase.central}/orders`, fd)
     await store.dispatch('orders/updateOrderStatus', fd)
   

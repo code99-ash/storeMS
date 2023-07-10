@@ -36,6 +36,21 @@ export default {
   beforeMount() {
     this.fetchOrders()
   },
+  mounted() {
+    const user = JSON.parse(localStorage.getItem('user'))
+    this.$socket.on(`orderChannel-${user._id}`, (data) => {
+      // Handle the received data
+      const { i, status } = data;
+      // console.log('order ids updates', {i, status})
+      this.$store.dispatch('updateOrderStatus', { ids: i, status })
+    });
+
+    this.$socket.emit('registerUserID', user._id);
+  },
+  beforeDestroy() {
+    const user = JSON.parse(localStorage.getItem('user'))
+    this.$socket.emit('deregisterUserID', user._id)
+  },  
   methods: {
     async fetchOrders() {
       const user = localStorage.getItem('user')

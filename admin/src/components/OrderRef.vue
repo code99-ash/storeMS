@@ -58,7 +58,7 @@ const emits = defineEmits(['selectOrder'])
 const opened = ref(false)
 
 const selected = computed(() => {
-    return props.selection.includes(props.order._id)
+    return props.selection.some(order => order.id == props.order._id)
 })
 
 const toggleOpen = () => {
@@ -66,7 +66,7 @@ const toggleOpen = () => {
 }
 
 const toggleSelect = () => {
-    emits('selectOrder', {id: props.order._id})
+    emits('selectOrder', {id: props.order._id, user: props.order.customer[0]._id })
 }
 </script>
 

@@ -18,9 +18,17 @@ async function consumeOrderData() {
 
     channel.consume(q.queue, (msg) => {
         const data = JSON.parse(msg.content)
-        console.log(data)
-        for (const socket of Object.values(clients)) {
-            socket.emit('orderChannel', data);
+        const { users, orderIds, status } = data.data.message
+
+        // console.log('LOOOPINGGG')
+        for(userId of Object.keys(connectedUsers)) {
+          
+          const userIncluded = users.find(u => u === userId);
+          
+          if(userIncluded) {
+            let socket = connectedUsers[userId]
+            socket.emit(`orderChannel-${userId}`, {i: orderIds, status});
+          }
         }
         io.emit('message', data)
         channel.ack(msg)
@@ -29,14 +37,25 @@ async function consumeOrderData() {
 
 const server = http.createServer(app);
 const io = socketio(server, { cors: {
-    origin: "http://localhost:8081",
-    methods: ["GET", "POST"]
+  origin: "*",
+  methods: ["GET", "POST"],
+  optionsSuccessStatus: 204
 }});
 
 const clients = {}; // Store socket instances for connected clients
+const connectedUsers = {}
 
 io.on('connection', (socket) => {
   console.log('Frontend connected');
+
+  socket.on('registerUserID', id => {
+    console.log("user registered to socket ",id)
+    connectedUsers[id] = socket;
+  })
+
+  socket.on('deregisterUserID', id => {
+    delete connectedUsers[id]
+  })
 
   // Store the socket instance for the connected client
   clients[socket.id] = socket;

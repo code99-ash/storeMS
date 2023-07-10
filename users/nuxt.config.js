@@ -30,6 +30,7 @@ export default {
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
     '~/plugins/axios-interceptor.js',
+    { src: '~/plugins/socket-io.js', ssr: false }
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components

@@ -38,6 +38,9 @@ export const actions = {
         const response = await this.$axios.get(`${centralBase}/orders/history/${id}`);
         commit('SET_ORDERS', response.data)
       },
+      updateOrderStatus({commit}, payload) {
+        commit('UPDATE_ORDERS', payload)
+      },
       addProduct({commit}, payload) {
         commit('ADD_PRODUCT', payload)
       },
@@ -70,7 +73,9 @@ export const actions = {
       },
       addFeedback({commit}, payload) {
         commit('ADD_FEEDBACK', payload)
-      }
+      },
+
+
 }
 
 export const mutations = {
@@ -82,6 +87,9 @@ export const mutations = {
       SET_ORDERS(state, payload) {
         console.log(payload)
         state.orders = payload
+      },
+      UPDATE_ORDERS(state, {ids, status}) {
+        state.orders = state.orders.map(each => ids.includes(each._id)? {...each, status} : each)
       },
   
       ADD_PRODUCT(state, payload) {

@@ -57,7 +57,7 @@ onBeforeMount(() => {
       }
       if (err.response.status >= 400 && err.response.status < 403 && err.config && !err.config.__isRetryRequest) {
       // if you ever get an unauthorized, logout the user
-        store.dispatch('auth/logout')
+        this.logout()
       // you can also redirect to /login if needed !
       }
       throw err;
