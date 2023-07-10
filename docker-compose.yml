@@ -71,6 +71,8 @@ services:
       - rabbitmq
     volumes:
       - ./socket/orderconsumer:/app
+    environment:
+      - AMQP_BASE=amqp://rabbitmq
   # productconsumer:
   #   build:
   #     context: ./socket/productconsumer
@@ -81,6 +83,9 @@ services:
   #     - rabbitmq
   #   volumes:
   #     - ./socket/productconsumer:/app
+  #   environment:
+  #   - AMQP_BASE=amqp://rabbitmq
+
   mongodb:
     image: mongo
     container_name: mongodb
