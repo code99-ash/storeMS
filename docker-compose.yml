@@ -52,17 +52,19 @@ services:
     depends_on:
       - server
       - authserver
+      - orderconsumer
     environment:
       - VUE_APP_PRODUCTION_MODE=true
       - VUE_APP_PRODUCTION_HOST=http://localhost
-  # orderconsumer:
-  #   build:
-  #     context: ./socket/orderconsumer
-  #     dockerfile: Dockerfile
-  #   ports:
-  #     - '5002:5002'
-  #   depends_on:
-  #     - rabbitmq
+      - VUE_APP_ORDERCONSUMER_BASE=http://orderconsumer:5002
+  orderconsumer:
+    build:
+      context: ./socket/orderconsumer
+      dockerfile: Dockerfile
+    ports:
+      - '5002:5002'
+    depends_on:
+      - rabbitmq
   # productconsumer:
   #   build:
   #     context: ./socket/productconsumer
@@ -83,11 +85,11 @@ services:
     image: redis:latest
     ports:
       - '6379:6379'
-  # rabbitmq:
-  #   image: rabbitmq:latest
-  #   ports:
-  #     - '5672:5672'
-  #     - '15672:15672'
+  rabbitmq:
+    image: rabbitmq:latest
+    ports:
+      - '5672:5672'
+      - '15672:15672'
   nginx:
     image: nginx:latest
     volumes:
@@ -102,4 +104,4 @@ services:
       - orderconsumer
       - productconsumer
       - redis
-      # - rabbitmq
+      - rabbitmq

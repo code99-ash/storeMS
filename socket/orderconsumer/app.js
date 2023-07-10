@@ -42,15 +42,22 @@ const io = socketio(server, { cors: {
   optionsSuccessStatus: 204
 }});
 
+// app.get('/orderconsumer', (req, res) => {
+//   res.send("ORDER CONSUMER RUNNING")
+// })
+
 const clients = {}; // Store socket instances for connected clients
 const connectedUsers = {}
 
 io.on('connection', (socket) => {
   console.log('Frontend connected');
+  socket.emit('message', 'Welcome aboard')
 
   socket.on('registerUserID', id => {
     console.log("user registered to socket ",id)
-    connectedUsers[id] = socket;
+    if(id) {
+      connectedUsers[id] = socket;
+    }
   })
 
   socket.on('deregisterUserID', id => {
@@ -67,8 +74,7 @@ io.on('connection', (socket) => {
   });
 });
 
-consumeOrderData().catch(console.error)
-
 server.listen(5002, () => {
+  consumeOrderData().catch(console.error)
   console.log('Server listening on port 5002');
 });

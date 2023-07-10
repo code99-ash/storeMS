@@ -41,9 +41,11 @@ export default {
     this.$socket.on(`orderChannel-${user._id}`, (data) => {
       // Handle the received data
       const { i, status } = data;
-      // console.log('order ids updates', {i, status})
+      console.log('order ids updates', {i, status})
       this.$store.dispatch('updateOrderStatus', { ids: i, status })
     });
+
+    this.$socket.on('message', msg => console.log(msg))
 
     this.$socket.emit('registerUserID', user._id);
   },
