@@ -14,7 +14,7 @@ services:
       - REDIS_PORT=6379
       - REDIS_HOST=redis
     volumes: 
-      - ./server/config/mongoose.js:/app/config/mongoose.js
+      - ./server:/app
   authserver:
     build:
       context: ./authserver
@@ -30,7 +30,7 @@ services:
       - REDIS_HOST=redis
       - PORT=4001
     volumes:
-      - ./authserver/config/mongoose.js:/app/config/mongoose.js
+      - ./authserver:/app
   admin:
     build:
       context: ./admin
@@ -43,6 +43,8 @@ services:
     environment:
       - VUE_APP_PRODUCTION_MODE=true
       - VUE_APP_PRODUCTION_HOST=http://localhost
+    volumes:
+      - ./admin:/app
   users:
     build:
       context: ./users
@@ -57,6 +59,8 @@ services:
       - VUE_APP_PRODUCTION_MODE=true
       - VUE_APP_PRODUCTION_HOST=http://localhost
       - VUE_APP_ORDERCONSUMER_BASE=http://orderconsumer:5002
+    volumes:
+      - ./users:/app
   orderconsumer:
     build:
       context: ./socket/orderconsumer
@@ -65,6 +69,8 @@ services:
       - '5002:5002'
     depends_on:
       - rabbitmq
+    volumes:
+      - ./socket/orderconsumer:/app
   # productconsumer:
   #   build:
   #     context: ./socket/productconsumer
@@ -73,6 +79,8 @@ services:
   #     - '5001:5001'
   #   depends_on:
   #     - rabbitmq
+  #   volumes:
+  #     - ./socket/productconsumer:/app
   mongodb:
     image: mongo
     container_name: mongodb
