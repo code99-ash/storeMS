@@ -5,5 +5,5 @@ export const env = {
     productionHost: process.env.VUE_APP_PRODUCTION_HOST
 }
 
-export const centralBase = env.isProduction == 'true' ? `${env.productionHost}/api` : `${env.centralBase}/api`
-export const authBase = env.isProduction == 'true' ? `${env.productionHost}/api/auth` : `${env.authBase}/api/auth`
+export const centralBase = env.isProduction == 'true' ? `/api` : `${env.centralBase}/api`
+export const authBase = env.isProduction == 'true' ? `/api/auth` : `${env.authBase}/api/auth`

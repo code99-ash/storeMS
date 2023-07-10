@@ -1,4 +1,8 @@
+require('dotenv').config()
+
 module.exports = {
-    url: 'amqp://localhost',
-    exchangeName: 'storeExchange'
+    rabbitMQ: {
+        url: process.env.AMQP_BASE,
+        exchangeName: 'storeExchange'
+    }
 }

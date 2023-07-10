@@ -13,6 +13,7 @@ services:
       - PORT=4000
       - REDIS_PORT=6379
       - REDIS_HOST=redis
+      - AMQP_BASE=amqp://rabbitmq
     volumes: 
       - ./server:/app
   authserver:
